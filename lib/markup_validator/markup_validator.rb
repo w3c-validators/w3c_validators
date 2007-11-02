@@ -3,8 +3,8 @@ require 'net/http'
 require 'uri'
 require 'rexml/document'
 
-module HTMLValidator
-  class Validator
+module W3CValidators
+  class MarkupValidator
 
     USER_AGENT                = 'Ruby HTML Validator/0.9 (http://code.dunae.ca/html_validator/)'
     VERSION                   = '0.9'

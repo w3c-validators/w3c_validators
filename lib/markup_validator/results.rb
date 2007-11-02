@@ -1,4 +1,4 @@
-module HTMLValidator
+module W3CValidators
   class Results
     attr_accessor :uri, :checked_by, :doctype, :charset, :validity
 

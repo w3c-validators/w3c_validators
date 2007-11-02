@@ -1,8 +1,8 @@
-require 'lib/html_validator/validator'
-require 'lib/html_validator/results'
-require 'lib/html_validator/message'
+require 'lib/markup_validator/markup_validator'
+require 'lib/markup_validator/results'
+require 'lib/markup_validator/message'
 
-module HTMLValidator
+module W3CValidators
 
   # Validate an URL against the W3C validator.
   #
@@ -16,8 +16,8 @@ module HTMLValidator
   #
   #   puts v.errors[0].to_s
   #   => "ERROR: line 6, col 73: end tag for "link" omitted, but OMITTAG NO was specified"
-  def self.validate(url, options={})
-    Validator.validate(url, options)
+  def self.validate_markup(url, options={})
+    MarkupValidator.validate(url, options)
   end
 
   # Validate an URL against the W3C validator using an HTTP HEAD request.

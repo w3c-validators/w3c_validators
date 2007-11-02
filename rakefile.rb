@@ -6,16 +6,16 @@ require 'lib/html_validator'
 #desc 'Default: parse a URL.'
 task :default => [:validate_html]
 
-desc 'Check a HTML file against the W3C\'s validation service.'
-task :validate_html do
+desc 'Check a file against the W3C\'s markup validation service.'
+task :validate do
   url = ENV['url']
   
   if !url or url.empty?
-    puts 'Usage: rake validate_html url=http://example.com/'
+    puts 'Usage: rake validate url=http://example.com/'
     exit
   end
 
-  results = HTMLValidator.validate(url)
+  results = W3CValidators.validate_markup(url)
   puts "ERRORS?"
   puts results.errors.length
 

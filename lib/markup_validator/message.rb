@@ -1,4 +1,4 @@
-module HTMLValidator
+module W3CValidators
   class Message
     attr_accessor :type, :line, :col, :source, :explanation, :message, :message_id
     

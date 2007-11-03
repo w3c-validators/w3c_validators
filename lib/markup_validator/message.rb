@@ -23,7 +23,7 @@ module W3CValidators
     end
 
     def to_s
-      return '' if @message.empty?
+      return '' unless @message and not @message.empty?
       @type.to_s.upcase + ": line #{@line}, col #{@col}: #{@message}"
     end
 

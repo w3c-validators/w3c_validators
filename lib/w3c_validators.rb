@@ -1,5 +1,3 @@
-require 'lib/markup_validator/markup_validator'
-require 'lib/markup_validator/exceptions'
-require 'lib/markup_validator/constants'
-require 'lib/markup_validator/results'
-require 'lib/markup_validator/message'
+require 'lib/w3c_validators/validator'
+require 'lib/w3c_validators/markup_validator'
+require 'lib/w3c_validators/feed_validator'

@@ -1,77 +1,71 @@
 require File.dirname(__FILE__) + '/test_helper'
 
-# Test cases for the CssParser.
+# Test cases for the MarkupValidator.
 class MarkupValidatorTests < Test::Unit::TestCase
-include W3CValidators
+  include W3CValidators
   def setup
     @v = MarkupValidator.new
-
-    @valid_fragment = <<-EOV
-      <div class="example">This is a test</div>
-    EOV
-
-    @invalid_fragment = <<-EOI
-      <div class="example>This is a test
-    EOI
-
-  end
-
-  def test_converting_boolean_params_to_integers
-    return
   end
 
   def test_overriding_doctype
-    doctype = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">'
-    @v.set_doctype!(doctype, false)
-    r = @v.validate_uri('http://dunae.ca/', true)
-    flunk
-    assert_equal doctype, r.doctype
-    return
+    @v.set_doctype!(:html32, false)
+    r = @v.validate_uri('http://code.dunae.ca/w3c_validators/test/invalid.html')
+    assert_equal '-//W3C//DTD HTML 3.2 Final//EN', r.doctype
   end
 
   def test_overriding_doctype_for_fallback_only
-    doctype = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">'
-    @v.set_doctype!(doctype, true)
-    r = @v.validate_uri('http://dunae.ca/', true)
-    assert_not_equal doctype, r.doctype
-    return
+    @v.set_doctype!(:html32, true)
+    r = @v.validate_uri('http://code.dunae.ca/w3c_validators/test/invalid.html')
+    assert_not_equal '-//W3C//DTD HTML 3.2 Final//EN', r.doctype
   end
-  
+
   def test_overriding_charset
-    return
+    @v.set_charset!(:utf_16, false)
+    r = @v.validate_uri('http://code.dunae.ca/w3c_validators/test/invalid.html')
+    assert_equal 'utf-16', r.charset
+  end
+
+  def test_overriding_charset_for_fallback_only
+    @v.set_doctype!(:utf_16, true)
+    r = @v.validate_uri('http://code.dunae.ca/w3c_validators/test/invalid.html')
+    assert_not_equal 'utf-16', r.charset
   end
 
   def test_validating_uri_with_head_request
-    r = @v.validate_uri('http://dunae.ca/', true)
-    assert_equal 11, r.errors.length
+    r = @v.validate_uri_quickly('http://code.dunae.ca/w3c_validators/test/invalid.html')
+    assert_equal 1, r.errors.length
     assert_equal 0, r.warnings.length
   end
 
   def test_validating_uri_with_soap
-    r = @v.validate_uri('http://dunae.ca/', false)
-    assert_equal 11, r.errors.length
+    r = @v.validate_uri('http://code.dunae.ca/w3c_validators/test/invalid.html')
+    assert_equal 1, r.errors.length
     assert_equal 0, r.warnings.length
   end
 
   def test_debugging_uri
     @v.set_debug!
-    r = @v.validate_uri('http://dunae.ca/', false)
+    r = @v.validate_uri('http://code.dunae.ca/w3c_validators/test/invalid.html')
     assert r.debug_messages.length > 0
   end
 
-  def test_validating_file_with_soap
-    return
+  def test_validating_file
+    file = File.dirname(__FILE__) + '/fixtures/invalid.html'
+    r = @v.validate_file(file)
+    assert_equal 1, r.errors.length
   end
 
-  def test_validating_fragment_with_soap
-    return
-    r = @v.validate_fragment(@valid_fragment, false)
-    puts @valid_fragment
-    r.errors.each do |err|
-      puts err.to_s
-    end
-
+  def test_validating_fragment
+    valid_fragment = <<-EOV
+      <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+      <title>Test</title>
+      <body>
+      <div class="example">This is a test</div>
+      </body>
+    EOV
+    
+    r = @v.validate_fragment(valid_fragment)
     assert_equal 0, r.errors.length
-
+    assert_equal 0, r.warnings.length
   end
 end

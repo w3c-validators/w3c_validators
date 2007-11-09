@@ -9,6 +9,7 @@ task :default => [:validate]
 
 desc 'Check a file against the W3C\'s markup validation service.'
 task :validate do
+
   url = ENV['url']
   
   if !url or url.empty?
@@ -18,21 +19,10 @@ task :validate do
   
   v = MarkupValidator.new
   
-  #results = v.validate_file('test.html', false)
-
   results = v.validate_uri(url, false)
-  puts "ERRORS?"
-  puts results.errors.length
+  puts "Errors:" + results.errors.length.to_s
 
-  puts "WARNINGS?"
-  puts results.warnings.length
-  
-  puts results.errors[0].to_s
-
-  #results.errors.each do |err|
-    #puts "ERROR: #{err.line}: #{err.source}"
-  #  puts err.to_s
-  #end
+  puts "Warnings: " + results.warnings.length.to_s
   
   puts "DOCTYPE: #{results.doctype}"
   puts "Validity: #{results.validity}"
@@ -47,14 +37,14 @@ Rake::TestTask.new do |t|
 end
 
 
-desc 'Generate documentation for the HTMLalidator.'
+desc 'Generate documentation for the W3C Validators.'
 Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'doc'
-  rdoc.title    = 'HTMLValidator'
+  rdoc.title    = 'Ruby W3C Validators'
   rdoc.options << '--all'
   rdoc.options << '--inline-source'
   rdoc.options << '--line-numbers'
-  #rdoc.rdoc_files.include('README')
+  rdoc.rdoc_files.include('README')
   rdoc.rdoc_files.include('LICENSE')
   #rdoc.rdoc_files.include('CHANGELOG')
   rdoc.rdoc_files.include('lib/*.rb')

@@ -1,0 +1,41 @@
+= W3C Validators README
+
+W3C Validators is a Ruby wrapper for the World Wide Web Consortium's online 
+validation service.
+
+It currently only supports the markup validator (http://validator.w3.org/); 
+support for the CSS and feed validators is pending.
+
+=== Installation
+
+  gem install w3c_validators
+
+=== Example
+
+  require 'w3c_validators'
+
+  # set a custom validation host
+  @validator = MarkupValidator.new(:validator_uri => 'http://validator.localhost/check')
+  
+  # override the DOCTYPE
+  @validator.set_doctype!(:html32)
+  
+  # turn on debugging messages
+  @validator.set_debug!(true)
+
+  results = @validator.validate_uri('http://example.com/invalid.html')
+
+  if results.errors.length > 0
+    results.errors.each do |err|
+      puts err.to_s
+    end
+  else
+    puts 'Valid!'
+  end
+
+=== Credits and code
+
+Documentation and the source code are available at http://code.dunae.ca/w3c_validators/.
+
+Written by Alex Dunae (dunae.ca, e-mail 'code' at the same domain), 2007.
+  

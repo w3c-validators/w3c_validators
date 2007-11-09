@@ -14,12 +14,12 @@ module W3CValidators
       @message_id = options[:messageid]
     end
 
+    def is_debug?
+      @type == :debug
+    end
+
     def is_error?
       @type == :error
-    end
-    
-    def is_warning?
-      @type == :warning
     end
 
     def to_s

@@ -10,7 +10,7 @@ module W3CValidators
     # parameters can also be set using set_charset!, set_debug! and set_doctype!.
     #
     # You can pass in your own validator's URI (i.e. 
-    # <tt>MarkupValidator.new({:validator_uri => 'http://localhost/check'})</tt>).
+    # <tt>MarkupValidator.new(:validator_uri => 'http://localhost/check')</tt>).
     def initialize(options = {})
       if options[:validator_uri]
         @validator_uri = URI.parse(options[:validator_uri])
@@ -166,7 +166,7 @@ protected
     # +response+ must be a Net::HTTPResponse.
     #
     # Returns W3CValidators::Results.
-    def parse_soap_response(response)
+    def parse_soap_response(response) # :nodoc:
       doc = REXML::Document.new(response)
 
       result_params = {}

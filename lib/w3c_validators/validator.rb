@@ -27,7 +27,7 @@ module W3CValidators
   protected
     # Perform a validation request.
     #
-    # +request_mode+ must be either +:get+, +:head+ or +:post+.
+    # +request_mode+ must be either <tt>:get</tt>, <tt>:head</tt> or <tt>:post</tt>.
     #
     # Returns Net::HTTPResponse.
     def send_request(options, request_mode = :get)

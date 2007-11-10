@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/test_helper'
 
-# Test cases for the MarkupValidator.
+# Test cases for the FeedValidator.
 class FeedValidatorTests < Test::Unit::TestCase
   include W3CValidators
   def setup

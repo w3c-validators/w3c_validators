@@ -5,7 +5,7 @@ class MarkupValidatorTests < Test::Unit::TestCase
   include W3CValidators
   def setup
     @v = MarkupValidator.new
-    #sleep 1
+    sleep 1
   end
 
   def test_overriding_doctype

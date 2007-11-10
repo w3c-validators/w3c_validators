@@ -12,7 +12,7 @@ class CSSValidatorTests < Test::Unit::TestCase
     
     EOT
 
-    #sleep 1
+    sleep 1
   end
 
   def test_overriding_css_profile
@@ -27,7 +27,7 @@ class CSSValidatorTests < Test::Unit::TestCase
     assert_equal 1, r.errors.length
   end
 
-  def test_validating_uri_with_soap
+  def test_validating_uri
     @v.set_profile!(:svgbasic)
     r = @v.validate_text(@invalid_fragment)
     assert_equal 1, r.errors.length

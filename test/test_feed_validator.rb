@@ -5,7 +5,7 @@ class FeedValidatorTests < Test::Unit::TestCase
   include W3CValidators
   def setup
     @v = FeedValidator.new
-    #sleep 1
+    sleep 1
   end
 
   def test_validating_uri_with_soap
@@ -14,7 +14,13 @@ class FeedValidatorTests < Test::Unit::TestCase
     assert_equal 1, r.warnings.length
   end
  
-  def test_validating_fragment
+  def test_validating_file
+    file_path = File.expand_path(File.dirname(__FILE__) + '/fixtures/invalid_feed.xml')
+    r = @v.validate_file(file_path)
+    assert_equal 1, r.errors.length
+  end
+ 
+  def test_validating_text
     fragment = <<-EOT
     <?xml version="1.0" encoding="utf-8"?>
     <feed xmlns="http://www.w3.org/2005/Atom">
@@ -37,7 +43,7 @@ class FeedValidatorTests < Test::Unit::TestCase
     </feed>
     EOT
 
-    r = @v.validate_fragment(fragment)
+    r = @v.validate_text(fragment)
     assert_equal 1, r.errors.length
   end
 

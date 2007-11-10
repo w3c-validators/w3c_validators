@@ -1,12 +1,40 @@
 module W3CValidators
   class Message
     attr_accessor :type, :line, :col, :source, :explanation, :message, :message_id
-    attr_accessor :text, :message_count, :element, :parent, :value
+    attr_accessor :message_count, :element, :parent, :value
     
     MESSAGE_TYPES = [:warning, :error]
 
-    def initialize(message_type, options = {})
+    # Due to the responses received from the W3C's validators, different data 
+    # are available for different validation types.
+    #
+    # ==== Feed validation
+    # * +line+
+    # * +col+
+    # * +message+ (originally +text+)
+    # * +message_count+
+    # * +element+
+    # * +parent+
+    # * +value+
+    # See http://validator.w3.org/feed/docs/soap.html#soap12message for full explanations.
+    #
+    # ==== Markup validation
+    # * +line+
+    # * +col+
+    # * +message+
+    # * +message_id+
+    # * +explanation+
+    # * +source+
+    # See http://validator.w3.org/docs/api.html#soap12message for full explanations.
+    #
+    # ==== CSS validation (http://jigsaw.w3.org/css-validator/api.html#soap12message)
+    # * +level+
+    # * +line+
+    # * +message+
+    # See http://jigsaw.w3.org/css-validator/api.html#soap12message for full explanations.
+    def initialize(uri, message_type, options = {})
       @type = message_type
+      @uri = uri
 
       # All validators
       @line = options[:line]
@@ -19,11 +47,14 @@ module W3CValidators
       @message_id = options[:messageid]
 
       # FeedValidator
-      @text = options[:text]
+      @message = options[:text] unless @message
       @message_count = options[:message_count]
       @element = options[:element]
       @parent = options[:parent]
       @value = options[:value]
+
+      # CSSValidator
+      @level = options[:level]
     end
 
     def is_warning?
@@ -34,14 +65,17 @@ module W3CValidators
       @type == :error
     end
 
+    # Return the message as a string.
     def to_s
-      if @message and not @message.empty?
-        return @type.to_s.upcase + ": line #{@line}, col #{@col}: #{@message}"
-      elsif @text and not @text.empty?
-        return @type.to_s.upcase + ": line #{@line}, col #{@col}: #{@text}"
-      else
-        return ''
+      str = @type.to_s.upcase
+      if @uri and not @uri.empty?
+        str << "; URI: #{@uri}"
       end
+      str << "; line #{@line}"
+      if @message and not @message.empty?
+        str << ": #{@message}"
+      end
+      return str
     end
 
   end

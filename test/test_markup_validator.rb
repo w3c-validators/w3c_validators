@@ -56,7 +56,7 @@ class MarkupValidatorTests < Test::Unit::TestCase
     assert_equal 1, r.errors.length
   end
 
-  def test_validating_fragment
+  def test_validating_text
     valid_fragment = <<-EOV
       <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
       <title>Test</title>
@@ -65,7 +65,7 @@ class MarkupValidatorTests < Test::Unit::TestCase
       </body>
     EOV
     
-    r = @v.validate_fragment(valid_fragment)
+    r = @v.validate_text(valid_fragment)
     assert_equal 0, r.errors.length
     assert_equal 0, r.warnings.length
   end

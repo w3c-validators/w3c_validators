@@ -1,4 +1,16 @@
 module W3CValidators
+  CSS_PROFILES = { :css1 => 'CSS 1',
+                   :css2 => 'CSS 2.0',
+                   :css21 => 'CSS 1.0',
+                   :css3 => 'CSS 3.0',
+                   :svg => 'SVG',
+                   :svgbasic => 'SVG Basic',
+                   :svgtiny => 'SVG Tiny',
+                   :mobile => 'Mobile',
+                   :atsc_tv => 'ATSC TV',
+                   :tv => 'TV'
+                 }
+
   DOCTYPES = { :xhtml10_strict => 'XHTML 1.0 Strict',
                :xhtml10_transitional => 'XHTML 1.0 Transitional',
                :xhtml10_frameset => 'XHTML 1.0 Frameset',

@@ -24,11 +24,21 @@ module W3CValidators
       return validate({:url => url})
     end
 
-    # Validate feed source using a +SOAP+ request.
+    # Validate a feed from a string.
     #
     # Returns W3CValidators::Results.
-    def validate_fragment(src)
-      return validate({:rawdata => src})
+    def validate_text(text)
+      return validate({:rawdata => text})
+    end
+
+    # Validate a local feed file.
+    #
+    # +file_path+ must be the fully-expanded path to the file.
+    #
+    # Returns W3CValidators::Results.
+    def validate_file(file_path)
+      src = read_local_file(file_path)
+      return validate_text(src)
     end
 
 protected
@@ -69,7 +79,7 @@ protected
       result_params = {}
 
       {:uri => 'uri', :checked_by => 'checkedby', :validity => 'validity'}.each do |local_key, remote_key|        
-        if val = doc.elements["//*[local-name()='feedvalidationresponse']/*[local-name()='#{local_key.to_s}']"]
+        if val = doc.elements["//*[local-name()='feedvalidationresponse']/*[local-name()='#{remote_key.to_s}']"]
           result_params[local_key] = val.text
         end
       end
@@ -88,8 +98,8 @@ protected
 
       return results
 
-      rescue Exception => e
-        handle_exception e
+    rescue Exception => e
+      handle_exception e
     end
   end
 end

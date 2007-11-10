@@ -3,7 +3,7 @@
 W3C Validators is a Ruby wrapper for the World Wide Web Consortium's online 
 validation services.
 
-It currently supports the markup validator and the feed validator.
+It supports the markup validator, the feed validator and the CSS validator.
 
 === Installation
 
@@ -24,7 +24,6 @@ It currently supports the markup validator and the feed validator.
   
   # turn on debugging messages
   @validator.set_debug!(true)
-
 
   file = File.dirname(__FILE__) + '/fixtures/markup.html'
   results = @validator.validate_file(fp)

@@ -47,7 +47,6 @@ module W3CValidators
             response = http.get(@validator_uri.path + '?' + query)
           when :post
             # send a multipart form request
-            puts "FOUND POST!@!!" + @validator_uri.path
             query, boundary = create_multipart_data(options)
             response = http.post2(@validator_uri.path, query, "Content-type" => "multipart/form-data; boundary=" + boundary)
           else
@@ -92,6 +91,13 @@ module W3CValidators
         end
       end
       qs
+    end
+
+    def read_local_file(file_path) # :nodoc:
+      fh = File.new(file_path, 'r+')
+      src = fh.read
+      fh.close
+      src
     end
 
   private

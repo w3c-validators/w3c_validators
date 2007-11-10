@@ -18,7 +18,7 @@ class ExceptionTests < Test::Unit::TestCase
      'http://example.com/noexist'].each do |uri|
       v = MarkupValidator.new(:validator_uri => uri)
       assert_raise ValidatorUnavailable do
-        r = v.validate_fragment(@valid_fragment)
+        r = v.validate_text(@valid_fragment)
       end
     end
   end
@@ -28,7 +28,7 @@ class ExceptionTests < Test::Unit::TestCase
     [].each do |uri|
       v = MarkupValidator.new(:validator_uri => uri)
       assert_raise ParsingError do
-        r = v.validate_fragment(@valid_fragment)
+        r = v.validate_text(@valid_fragment)
       end
     end
   end

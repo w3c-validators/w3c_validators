@@ -92,11 +92,11 @@ module W3CValidators
       return validate({:uri => uri}, true)
     end
 
-    # Validate the markup of a fragment.
+    # Validate the markup of a string.
     #
     # Returns W3CValidators::Results.
-    def validate_fragment(fragment)
-      return validate({:fragment => fragment}, false)
+    def validate_text(text)
+      return validate({:fragment => text}, false)
     end
     
     # Validate the markup of a local file.
@@ -104,16 +104,10 @@ module W3CValidators
     # +file_path+ must be the fully-expanded path to the file.
     #
     # Returns W3CValidators::Results.
-    #--
-    # TODO: needs error handling
-    #++
     def validate_file(file_path)
-      fh = File.new(file_path, 'r+')
-      markup_src = fh.read
-      fh.close
-      return validate({:uploaded_file => markup_src}, false)
+      src = read_local_file(file_path)
+      return validate({:uploaded_file => src}, false)
     end
-
 
 protected
     def validate(options, quick = false) # :nodoc:

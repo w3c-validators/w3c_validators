@@ -3,10 +3,10 @@ require 'net/http'
 require 'uri'
 require 'rexml/document'
 
-require 'lib/w3c_validators/exceptions'
-require 'lib/w3c_validators/constants'
-require 'lib/w3c_validators/results'
-require 'lib/w3c_validators/message'
+require 'w3c_validators/exceptions'
+require 'w3c_validators/constants'
+require 'w3c_validators/results'
+require 'w3c_validators/message'
 
 module W3CValidators
   # Base class for MarkupValidator and FeedValidator.

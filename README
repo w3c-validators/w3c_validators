@@ -1,0 +1,116 @@
+= W3C Validators Gem README
+
+W3C Validators is a Ruby wrapper for the World Wide Web Consortium's online 
+validation services.
+
+It supports the markup validator, the feed validator and the CSS validator.
+
+=== Installation
+
+  gem install w3c_validators
+
+=== Usage
+
+There are three main validator classes available, the W3CValidators::MarkupValidator 
+(used for HTML), the W3CValidators::FeedValidator and the 
+W3CValidators::CSSValidator.
+
+Each validator has offers three different validation methods.
+
+* +validate_text+ methods take a string
+* +validate_file+ methods take a path to a file
+* +validate_uri+ methods take a published URL
+
+In addition, the W3CValidators::MarkupValidator has a validate_uri_quickly method, which 
+performs a HEAD request against the markup validation service.  The Results 
+of this call give an error count but no error details.
+
+==== Using a local validator
+
+Each of the three validators allows you to specify a custom path to the 
+validator.  You can set your own validator like this:
+
+  validator = MarkupValidator.new(:validator_uri => 'http://localhost/check')
+
+=== Examples
+
+==== Example #1: Markup validator, local file
+
+  require 'w3c_validators'
+  
+  include W3CValidators
+
+  @validator = MarkupValidator.new
+  
+  # override the DOCTYPE
+  @validator.set_doctype!(:html32)
+  
+  # turn on debugging messages
+  @validator.set_debug!(true)
+
+  file = File.dirname(__FILE__) + '/fixtures/markup.html'
+  results = @validator.validate_file(fp)
+
+  if results.errors.length > 0
+    results.errors.each do |err|
+      puts err.to_s
+    end
+  else
+    puts 'Valid!'
+  end
+  
+  puts 'Debugging messages'
+  
+  results.debug_messages.each do |key, value|
+    puts "#{key}: #{value}"
+  end
+
+
+==== Example #2: Feed validator, remote file
+
+  require 'w3c_validators'
+  
+  include W3CValidators
+
+  @validator = FeedValidator.new
+
+  results = @validator.validate_uri('http://example.com/feed.xml')
+
+  if results.errors.length > 0
+    results.errors.each do |err|
+      puts err.to_s
+    end
+  else
+    puts 'Valid!'
+  end
+
+==== Example #3: CSS validator, text fragment
+
+  require 'w3c_validators'
+  
+  include W3CValidators
+
+  @validator = CSSValidator.new
+
+  results = @validator.validate_text('body { margin: 0px; }')
+
+  if results.errors.length > 0
+    results.errors.each do |err|
+      puts err.to_s
+    end
+  else
+    puts 'Valid!'
+  end
+
+=== Tests
+
+Run unit tests using <tt>rake test</tt>.  Note that there is a one second delay 
+between each call to the W3C's validators per their request.
+
+
+=== Credits and code
+
+Documentation and the source code are available at http://code.dunae.ca/w3c_validators.
+
+Written by Alex Dunae (dunae.ca, e-mail 'code' at the same domain), 2007.
+  

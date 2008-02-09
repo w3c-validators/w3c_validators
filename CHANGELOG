@@ -7,4 +7,4 @@
  * fixed include path bug
 
 == Version 0.9.2 (the Ryan King edition)
- * add check for HTML validator being unable to parse a file
+ * added check for HTML validator being unable to parse a file

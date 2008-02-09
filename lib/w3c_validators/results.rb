@@ -38,7 +38,7 @@ module W3CValidators
     end
 
     def is_valid?
-      @validity.downcase.strip == 'true'
+      @validity && @validity.downcase.strip == 'true'
     end
 
     # Returns an array of Message objects.

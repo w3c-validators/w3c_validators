@@ -183,7 +183,13 @@ protected
           results.add_message(local_type, message_params)
         end
       end
-      
+
+      doc.elements.each("env:Envelope/env:Body/env:Fault/env:Reason") do |message|
+        message.elements.each("env:Text") do |m|
+          results.add_message(:error, {:mesage => m.text})
+        end
+      end
+
       doc.elements.each("env:Envelope/env:Body/m:markupvalidationresponse/m:debug") do |debug|
         results.add_debug_message(debug.attribute('name').value, debug.text)
       end

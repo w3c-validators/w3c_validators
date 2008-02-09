@@ -69,4 +69,16 @@ class MarkupValidatorTests < Test::Unit::TestCase
     assert_equal 0, r.errors.length
     assert_equal 0, r.warnings.length
   end
+
+  def test_validator_abort
+    @v.set_debug!
+    assert_nothing_raised do
+      r = @v.validate_uri('http://code.dunae.ca/w3c_validators/test/invalid_encoding.html')
+      assert !r.is_valid?
+      assert_equal 1, r.errors.length
+      assert_equal [], r.warnings
+    end
+  end
+
+
 end

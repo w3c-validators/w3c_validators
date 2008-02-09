@@ -1,0 +1,8 @@
+= CHANGELOG
+
+== Version 0.9.0
+ * initial version
+
+== Version 0.9.1 (the Ryan King edition)
+ * add check for HTML validator being unable to parse a file
+

@@ -3,7 +3,6 @@ require 'rake/testtask'
 require 'rake/rdoctask'
 require 'rake/gempackagetask'
 require 'lib/w3c_validators'
-
 require 'fileutils'
 
 include W3CValidators

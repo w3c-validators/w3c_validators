@@ -23,6 +23,7 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.options << '--all' << '--inline-source' << '--line-numbers'
   rdoc.rdoc_files.include('README')
   rdoc.rdoc_files.include('LICENSE')
+  rdoc.rdoc_files.include('CHANGELOG')
   rdoc.rdoc_files.include('lib/*.rb')
   rdoc.rdoc_files.include('lib/w3c_validators/*.rb')
 end
@@ -41,7 +42,7 @@ spec = Gem::Specification.new do |s|
   s.files = FileList["{lib}/**/*"].to_a
   s.test_files = Dir.glob('test/test_*.rb') 
   s.has_rdoc = true
-  s.extra_rdoc_files = ["README", "LICENSE"]
+  s.extra_rdoc_files = ["README", "LICENSE", "CHANGELOG"]
   s.rdoc_options << '--all' << '--inline-source' << '--line-numbers'
 end
 

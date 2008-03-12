@@ -33,11 +33,16 @@ module W3CValidators
 
     # Validate a local feed file.
     #
-    # +file_path+ must be the fully-expanded path to the file.
+    # +file_path+ may be either the fully-expanded path to the file or
+    # an IO object (like File).
     #
     # Returns W3CValidators::Results.
     def validate_file(file_path)
-      src = read_local_file(file_path)
+      if file_path.respond_to? :read
+        src = file_path.read
+      else
+        src = read_local_file(file_path)
+      end
       return validate_text(src)
     end
 

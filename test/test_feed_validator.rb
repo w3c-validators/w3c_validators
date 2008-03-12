@@ -47,5 +47,15 @@ class FeedValidatorTests < Test::Unit::TestCase
     assert_equal 1, r.errors.length
   end
 
+
+  def test_validating_text_via_file
+    file_path = File.expand_path(File.dirname(__FILE__) + '/fixtures/invalid_feed.xml')
+    fh = File.new(file_path, 'r+')    
+    r = @v.validate_file(fh)
+    fh.close
+    assert_equal 1, r.errors.length
+  end
+
+
  
 end

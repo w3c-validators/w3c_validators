@@ -54,6 +54,8 @@ class MarkupValidatorTests < Test::Unit::TestCase
     file = File.dirname(__FILE__) + '/fixtures/invalid_markup.html'
     r = @v.validate_file(file)
     assert_equal 1, r.errors.length
+    
+    assert r.uri =~ /fixtures\/invalid_markup\.html$/
   end
 
   def test_validating_text
@@ -69,6 +71,14 @@ class MarkupValidatorTests < Test::Unit::TestCase
     assert_equal 0, r.errors.length
     assert_equal 0, r.warnings.length
   end
+
+  def test_validating_text_via_file
+    fh = File.new(File.dirname(__FILE__) + '/fixtures/invalid_markup.html', 'r+')    
+    r = @v.validate_file(fh)
+    fh.close
+    assert_equal 1, r.errors.length
+  end
+
 
   def test_validator_abort
     @v.set_debug!

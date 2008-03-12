@@ -18,7 +18,7 @@ W3CValidators::CSSValidator.
 Each validator has offers three different validation methods.
 
 * +validate_text+ methods take a string
-* +validate_file+ methods take a path to a file
+* +validate_file+ methods take a path to a file or an IO object
 * +validate_uri+ methods take a published URL
 
 In addition, the W3CValidators::MarkupValidator has a validate_uri_quickly method, which 
@@ -115,4 +115,6 @@ Documentation and the source code are available at http://code.dunae.ca/w3c_vali
 Written by Alex Dunae (dunae.ca, e-mail 'code' at the same domain), 2007.
 
 Thanks to Ryan King (http://theryanking.com/) for creating the 0.9.2 update.
+
+Thanks to Ryan King (http://theryanking.com/) and Jonathan Julian for creating the 0.9.3 update.
   

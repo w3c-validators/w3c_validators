@@ -64,11 +64,16 @@ module W3CValidators
     
     # Validate the CSS of a local file.
     #
-    # +file_path+ must be the fully-expanded path to the file.
+    # +file_path+ may be either the fully-expanded path to the file or
+    # an IO object (like File).
     #
     # Returns W3CValidators::Results.
     def validate_file(file_path)
-      src = read_local_file(file_path)
+      if file_path.respond_to? :read
+        src = file_path.read
+      else
+        src = read_local_file(file_path)
+      end 
       return validate_text(src)
     end
 
@@ -76,10 +81,8 @@ module W3CValidators
 protected
     def validate(options) # :nodoc:
       options = get_request_options(options)
-      #puts options.inspect
       response = send_request(options, :get)
       @results = parse_soap_response(response.body)
-      #puts response.body
       @results
     end
 

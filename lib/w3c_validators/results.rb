@@ -9,7 +9,11 @@ module W3CValidators
       @doctype        = options[:doctype]
       @css_level      = options[:css_level]
       @charset        = options[:charset]
-      @validity       = options[:validity]
+      if options[:validity].kind_of?(String)
+        @validity     = options[:validity].downcase.strip == 'true'
+      else
+        @validity     = options[:validity]
+      end
       @debug_messages = {}
     end
 
@@ -23,7 +27,7 @@ module W3CValidators
     end
 
     def add_warning(params = {})
-      add_message(:warnings, params)
+      add_message(:warning, params)
     end
 
     def add_debug_message(key, val)
@@ -38,7 +42,7 @@ module W3CValidators
     end
 
     def is_valid?
-      @validity && @validity.downcase.strip == 'true'
+      @validity
     end
 
     # Returns an array of Message objects.

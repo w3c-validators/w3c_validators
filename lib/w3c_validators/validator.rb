@@ -63,20 +63,36 @@ module W3CValidators
 
     def create_multipart_data(options) # :nodoc:
       boundary = '349832898984244898448024464570528145'
-      params = []
+
+      # added 2008-03-12: HTML5 validator expects 'file' and 'content' to be the last fields so
+      # we process those params separately
+      last_params = []
+
+      # added 2008-03-12: HTML5 validator expects 'file' instead of 'uploaded_file'
+      if options[:file] and !options[:uploaded_file]
+        options[:uploaded_file] = options[:file]
+      end
+
       if options[:uploaded_file]
         filename = options[:file_path] ||= 'temp.html'
         content = options[:uploaded_file]
-        params << "Content-Disposition: form-data; name=\"uploaded_file\"; filename=\"#{filename}\"\r\n" + "Content-Type: text/html\r\n" + "\r\n" + "#{content}\r\n"
+        last_params << "Content-Disposition: form-data; name=\"uploaded_file\"; filename=\"#{filename}\"\r\n" + "Content-Type: text/html\r\n" + "\r\n" + "#{content}\r\n"
         options.delete(:uploaded_file)
         options.delete(:file_path)
       end
+      
+      if options[:content]
+          last_params << "Content-Disposition: form-data; name=\"#{CGI::escape('content')}\"\r\n" + "\r\n" + "#{options[:content]}\r\n"
+      end
 
+      misc_params = []
       options.each do |key, value|
         if value
-          params << "Content-Disposition: form-data; name=\"#{CGI::escape(key.to_s)}\"\r\n" + "\r\n" + "#{value}\r\n"
+          misc_params << "Content-Disposition: form-data; name=\"#{CGI::escape(key.to_s)}\"\r\n" + "\r\n" + "#{value}\r\n"
         end
       end
+
+      params = misc_params + last_params
 
       multipart_query = params.collect {|p| '--' + boundary + "\r\n" + p}.join('') + "--" + boundary + "--\r\n" 
 

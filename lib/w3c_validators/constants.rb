@@ -17,6 +17,7 @@ module W3CValidators
                :xhtml401_strict => 'HTML 4.01 Strict',
                :xhtml401_transitional => 'HTML 4.01 Transitional',
                :xhtml401_framest => 'HTML 4.01 Frameset',
+               :html5 => 'HTML 5',
                :html32 => 'HTML 3.2',
                :html20 => 'HTML 2.0',
                :iso_html => 'ISO/IEC 15445:2000 (&quot;ISO HTML&quot;)',

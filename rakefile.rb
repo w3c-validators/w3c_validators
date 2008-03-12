@@ -30,7 +30,7 @@ end
 
 spec = Gem::Specification.new do |s| 
   s.name = "w3c_validators"
-  s.version = "0.9.2"
+  s.version = "0.9.3"
   s.author = "Alex Dunae"
   s.homepage = "http://code.dunae.ca/w3c_validators"
   s.platform = Gem::Platform::RUBY

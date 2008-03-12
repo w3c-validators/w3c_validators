@@ -9,6 +9,6 @@
 == Version 0.9.2 (the Ryan King edition)
  * added check for HTML validator being unable to parse a file
 
-== Version 0.9.3 (the Ryan King and Jonathan Julian edition)
+== Version 0.9.3 (the Ryan King/Jonathan Julian/Sylvain LaFleur edition)
  * MarkupValidator::validate_file now returns file path as Results.uri
  * All validate_file methods now allow a file path or an IO object (e.g. File)

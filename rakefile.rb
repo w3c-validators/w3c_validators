@@ -28,7 +28,7 @@ end
 
 desc 'Create the gem spec'
 task :create_gemspec do
-  File.open("w3c-validators.gemspec","w") do |file|
+  File.open("w3c_validators.gemspec","w") do |file|
     file.puts <<-EOH
 # Auto-generated gemspec
 # Run 'rake generate_gemspec' to re-generate

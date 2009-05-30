@@ -24,18 +24,18 @@ class CSSValidatorTests < Test::Unit::TestCase
   def test_validating_file
     file_path = File.expand_path(File.dirname(__FILE__) + '/fixtures/invalid_css.css')
     r = @v.validate_file(file_path)
-    assert_equal 1, r.errors.length
+    assert_errors r, 1
   end
 
   def test_validating_uri
     @v.set_profile!(:svgbasic)
     r = @v.validate_text(@invalid_fragment)
-    assert_equal 1, r.errors.length
+    assert_errors r, 1
   end
  
   def test_validating_text
     r = @v.validate_text(@invalid_fragment)
-    assert_equal 1, r.errors.length
+    assert_errors r, 1
   end
 
   def test_validating_text_via_file
@@ -43,7 +43,7 @@ class CSSValidatorTests < Test::Unit::TestCase
     fh = File.new(file_path, 'r+')    
     r = @v.validate_file(fh)
     fh.close
-    assert_equal 1, r.errors.length
+    assert_errors r, 1
   end
 
 

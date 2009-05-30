@@ -10,14 +10,14 @@ class FeedValidatorTests < Test::Unit::TestCase
 
   def test_validating_uri_with_soap
     r = @v.validate_uri('http://code.dunae.ca/w3c_validators/test/invalid_feed.xml')
-    assert_equal 1, r.errors.length
-    assert_equal 1, r.warnings.length
+    assert_errors r, 1
+    assert_warnings r, 1
   end
  
   def test_validating_file
     file_path = File.expand_path(File.dirname(__FILE__) + '/fixtures/invalid_feed.xml')
     r = @v.validate_file(file_path)
-    assert_equal 1, r.errors.length
+    assert_errors r, 1
   end
  
   def test_validating_text
@@ -53,7 +53,7 @@ class FeedValidatorTests < Test::Unit::TestCase
     fh = File.new(file_path, 'r+')    
     r = @v.validate_file(fh)
     fh.close
-    assert_equal 1, r.errors.length
+    assert_errors r, 1
   end
 
 

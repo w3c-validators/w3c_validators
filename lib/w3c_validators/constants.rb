@@ -1,14 +1,15 @@
 module W3CValidators
-  CSS_PROFILES = { :css1 => 'CSS 1',
-                   :css2 => 'CSS 2.0',
-                   :css21 => 'CSS 1.0',
-                   :css3 => 'CSS 3.0',
-                   :svg => 'SVG',
-                   :svgbasic => 'SVG Basic',
-                   :svgtiny => 'SVG Tiny',
-                   :mobile => 'Mobile',
-                   :atsc_tv => 'ATSC TV',
-                   :tv => 'TV'
+  
+  CSS_PROFILES = { :css1 => 'css1',
+                   :css2 => 'css2',
+                   :css21 => 'css21',
+                   :css3 => 'css3',
+                   :svg => 'svg',
+                   :svgbasic => 'svgbasic',
+                   :svgtiny => 'svgtiny',
+                   :mobile => 'mobile',
+                   :atsc_tv => 'atsc-tv',
+                   :tv => 'tv'
                  }
 
   DOCTYPES = { :xhtml10_strict => 'XHTML 1.0 Strict',

@@ -110,10 +110,7 @@ module W3CValidators
     end
 
     def read_local_file(file_path) # :nodoc:
-      fh = File.new(file_path, 'r+')
-      src = fh.read
-      fh.close
-      src
+      IO.read(file_path)
     end
 
   private

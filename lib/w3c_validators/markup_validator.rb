@@ -123,7 +123,7 @@ protected
         response = send_request(options, :head)
         @results = parse_head_response(response, options[:uri])
       else
-        if options.has_key?(:uri) or options.has_key?(:fragment)
+        if options.has_key?(:uri)
           response = send_request(options, :get)
         else
           response = send_request(options, :post)

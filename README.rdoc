@@ -120,3 +120,5 @@ Written by Alex Dunae ({dunae.ca}[http://dunae.ca/], e-mail 'code' at the same d
 Thanks to {Ryan King}[http://theryanking.com/] for creating the 0.9.2 update.
 
 Thanks to {Ryan King}[http://theryanking.com/], {Jonathan Julian}[http://jonathanjulian.org/] and Sylvain LaFleur for creating the 0.9.3 update.
+
+Thanks to {James Rosen}[http://github.com/jamesarosen] and {Roman Shterenzon}[http://github.com/romanbsd] for creating the 1.0.1 update.

@@ -20,8 +20,17 @@ module W3CValidators
     attr_reader :results, :validator_uri
 
     # Create a new instance of the Validator.
+    #
+    # +options+ Hash can optionally include
+    # - +proxy_host+
+    # - +proxy_port+
+    # - +proxy_user+
+    # - +proxy_pass+
     def initialize(options = {})
-      @options = options
+      @options = {:proxy_host => nil, 
+                  :proxy_port => nil,
+                  :proxy_user => nil,
+                  :proxy_pass => nil}.merge(options)
     end
 
   protected
@@ -34,7 +43,11 @@ module W3CValidators
       response = nil
       results = nil
 
-      Net::HTTP.start(@validator_uri.host, @validator_uri.port) do |http|
+      r = Net::HTTP::Proxy(@options[:proxy_host], 
+                       @options[:proxy_port],
+                       @options[:proxy_user], 
+                       @options[:proxy_pass]).start(@validator_uri.host, @validator_uri.port) do |http|    
+
         case request_mode
           when :head
             # perform a HEAD request

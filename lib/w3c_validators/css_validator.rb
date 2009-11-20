@@ -7,6 +7,8 @@ module W3CValidators
     # ==== Options
     # You can pass in your own validator's URI (i.e. 
     # <tt>CSSValidator.new(:validator_uri => 'http://localhost/check')</tt>).
+    #
+    # See Validator#new for proxy server options.
     def initialize(options = {})
       if options[:validator_uri]
         @validator_uri = URI.parse(options[:validator_uri])

@@ -35,7 +35,6 @@ class MarkupValidatorTests < Test::Unit::TestCase
   def test_validating_uri_with_head_request
     r = @v.validate_uri_quickly('http://code.dunae.ca/w3c_validators/test/invalid_markup.html')
     assert_errors r, 1
-    assert_no_errors r
   end
 
   def test_validating_uri_with_soap

@@ -23,6 +23,6 @@
  * GET should be used only for queries with URI
  * Bugfix - file doesn't need to be writeable 
  
-== Version 1.1
+== Version 1.0.2
  * Added support for proxy servers
  * Fixed to minor unit test errors

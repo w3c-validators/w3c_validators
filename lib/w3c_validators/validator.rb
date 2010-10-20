@@ -39,7 +39,7 @@ module W3CValidators
     # +request_mode+ must be either <tt>:get</tt>, <tt>:head</tt> or <tt>:post</tt>.
     #
     # Returns Net::HTTPResponse.
-    def send_request(options, request_mode = :get)
+    def send_request(options, request_mode = :get, following_redirect = false)
       response = nil
       results = nil
 
@@ -65,6 +65,11 @@ module W3CValidators
           else
             raise ArgumentError, "request_mode must be either :get, :head or :post"
         end
+      end
+
+      if response.kind_of?(Net::HTTPRedirection) and response['location'] and not following_redirect
+        options[:url] = response['location']
+        return send_request(options, request_mode, true)
       end
 
       response.value

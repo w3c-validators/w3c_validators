@@ -130,7 +130,6 @@ protected
         else
           response = send_request(options, :post)
         end
-
         @results = parse_soap_response(response.body)
       end
       @results
@@ -169,36 +168,35 @@ protected
     #
     # Returns W3CValidators::Results.
     def parse_soap_response(response) # :nodoc:
-      doc = REXML::Document.new(response)
+      doc = Nokogiri::XML(response)
+      doc.remove_namespaces! 
 
       result_params = {}
 
-      {:doctype => 'm:doctype', :uri => 'm:uri', :charset => 'm:charset', 
-       :checked_by => 'm:checkedby', :validity => 'm:validity'}.each do |local_key, remote_key|        
-        if val = doc.elements["env:Envelope/env:Body/m:markupvalidationresponse/#{remote_key}"]
+      {:doctype => 'doctype', :uri => 'uri', :charset => 'charset', 
+       :checked_by => 'checkedby', :validity => 'validity'}.each do |local_key, remote_key|        
+        if val = doc.css(remote_key)
           result_params[local_key] = val.text
         end
       end
 
       results = Results.new(result_params)
 
-      {:warning => 'm:warnings/m:warninglist/m:warning', :error => 'm:errors/m:errorlist/m:error'}.each do |local_type, remote_type|
-        doc.elements.each("env:Envelope/env:Body/m:markupvalidationresponse/#{remote_type}") do |message|
+      {:warning => 'warnings warning', :error => 'errorlist error'}.each do |local_type, remote_type|
+        doc.css(remote_type).each do |message|
           message_params = {}
-          message.each_element_with_text do |el|
-            message_params[el.name.to_sym] = el.text
+          message.children do |el|
+            message_params[el.name.to_sym] = el.text unless el.blank?
           end
           results.add_message(local_type, message_params)
         end
       end
 
-      doc.elements.each("env:Envelope/env:Body/env:Fault/env:Reason") do |message|
-        message.elements.each("env:Text") do |m|
-          results.add_message(:error, {:mesage => m.text})
-        end
+      doc.css("Fault Reason Text").each do |message|
+        results.add_message(:error, {:mesage => message.text})
       end
-
-      doc.elements.each("env:Envelope/env:Body/m:markupvalidationresponse/m:debug") do |debug|
+      
+      doc.css("markupvalidationresponse debug").each do |debug|
         results.add_debug_message(debug.attribute('name').value, debug.text)
       end
       return results

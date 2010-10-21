@@ -2,7 +2,7 @@ require 'json'
 
 module W3CValidators
   class NuValidator < Validator
-    MARKUP_VALIDATOR_URI      = 'http://validator.nu/'
+    MARKUP_VALIDATOR_URI      = 'http://html5.validator.nu/'
 
     # Create a new instance of the NuValidator.
     #
@@ -16,6 +16,7 @@ module W3CValidators
     #
     # See Validator#new for proxy server options.
     def initialize(options = {})
+      options[:parser] = 'html'
       if options[:validator_uri]
         @validator_uri = URI.parse(options[:validator_uri])
         options.delete(options[:validator_uri])
@@ -62,11 +63,11 @@ module W3CValidators
 protected
     def validate(options) # :nodoc:
       options = get_request_options(options)
-
+      
       if options.has_key?(:doc)
         response = send_request(options, :get)
       else
-        response = send_request(options, :post)
+        response = send_request(options, :post, false, :content)
       end
 
       @results = parse_json_response(response.body)

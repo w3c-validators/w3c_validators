@@ -109,12 +109,13 @@ protected
 
 
     def parse_soap_response(response) # :nodoc:
-      doc = REXML::Document.new(response)
+      doc = Nokogiri::XML(response)
+      doc.remove_namespaces! 
 
       result_params = {}
 
       {:uri => 'uri', :checked_by => 'checkedby', :validity => 'validity', :css_level => 'csslevel'}.each do |local_key, remote_key|        
-        if val = doc.elements["//*[local-name()='cssvalidationresponse']/*[local-name()='#{remote_key.to_s}']"]
+        if val = doc.at('cssvalidationresponse ' + remote_key)
           result_params[local_key] = val.text
         end
       end
@@ -122,17 +123,17 @@ protected
       results = Results.new(result_params)
 
       ['warninglist', 'errorlist'].each do |list_type|
-        doc.elements.each("//*[local-name()='#{list_type.to_s}']") do |message_list|        
+        doc.css(list_type).each do |message_list|        
 
-          if uri_node = message_list.elements["*[local-name()='uri']"]
+          if uri_node = message_list.at('uri')
             uri = uri_node.text
           end
 
           [:warning, :error].each do |msg_type|
-            message_list.elements.each("*[local-name()='#{msg_type.to_s}']") do |message|
+            message_list.css(msg_type.to_s).each do |message|
               message_params = {}
-              message.each_element_with_text do |el|
-                message_params[el.name.to_sym] = el.text
+              message.children.each do |el|
+                message_params[el.name.to_sym] = el.text unless el.blank?
               end
               message_params[:uri] = uri
               results.add_message(msg_type, message_params)

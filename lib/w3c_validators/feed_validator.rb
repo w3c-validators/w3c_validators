@@ -81,12 +81,13 @@ protected
     #
     # Returns W3CValidators::Results.
     def parse_soap_response(response) # :nodoc:
-      doc = REXML::Document.new(response)
+      doc = Nokogiri::XML(response)
+      doc.remove_namespaces! 
 
       result_params = {}
 
       {:uri => 'uri', :checked_by => 'checkedby', :validity => 'validity'}.each do |local_key, remote_key|        
-        if val = doc.elements["//*[local-name()='feedvalidationresponse']/*[local-name()='#{remote_key.to_s}']"]
+        if val = doc.at('feedvalidationresponse ' + remote_key)
           result_params[local_key] = val.text
         end
       end
@@ -94,10 +95,10 @@ protected
       results = Results.new(result_params)
 
       [:warning, :error].each do |msg_type|
-        doc.elements.each("//*[local-name()='#{msg_type.to_s}']") do |message|
+        doc.css(msg_type.to_s).each do |message|
           message_params = {}
-          message.each_element_with_text do |el|
-            message_params[el.name.to_sym] = el.text
+          message.children.each do |el|
+            message_params[el.name.to_sym] = el.text unless el.blank?
           end
           results.add_message(msg_type, message_params)
         end

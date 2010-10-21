@@ -1,6 +1,7 @@
 require 'cgi'
 require 'net/http'
 require 'uri'
+require 'json'
 require 'nokogiri'
 
 require 'w3c_validators/exceptions'
@@ -39,7 +40,7 @@ module W3CValidators
     # +request_mode+ must be either <tt>:get</tt>, <tt>:head</tt> or <tt>:post</tt>.
     #
     # Returns Net::HTTPResponse.
-    def send_request(options, request_mode = :get, following_redirect = false, params_to_post = [])
+    def send_request(options, request_mode = :get, following_redirect = false, params_to_post = nil)
       response = nil
       results = nil
 
@@ -60,9 +61,14 @@ module W3CValidators
             response = http.get(@validator_uri.path + '?' + query)
           when :post
             # send a multipart form request
-            post = {}
-            [params_to_post].flatten.each do |param|
-              post[param] = options.delete(param)
+            if params_to_post
+              post = {}
+              [params_to_post].flatten.each do |param|
+                post[param] = options.delete(param)
+              end
+            else
+              post = options
+              options = {}
             end
               
             qs = create_query_string_data(options)
@@ -147,7 +153,7 @@ module W3CValidators
         when Net::HTTPServerException, SocketError
           msg = "unable to connect to the validator at #{@validator_uri} (response was #{e.message})."
           raise ValidatorUnavailable, msg, caller
-        when REXML::ParseException
+        when JSON::ParserError, Nokogiri::XML::SyntaxError
           msg = "unable to parse the response from the validator."
           raise ParsingError, msg, caller
         else

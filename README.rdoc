@@ -7,8 +7,7 @@ It supports the markup validator, the feed validator and the CSS validator.
 
 === Installation
 
-  gem sources -a http://gems.github.com
-  gem install alexdunae-w3c_validators
+  gem install w3c_validators
 
 === Usage
 

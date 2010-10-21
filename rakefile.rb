@@ -35,7 +35,7 @@ task :create_gemspec do
 Gem::Specification.new do |s|
   s.name     = "w3c_validators"
   s.platform = Gem::Platform::RUBY
-  s.version  = "1.1"
+  s.version  = "1.1.1"
   s.date     = "2010-10-20"
   s.summary  = "Wrapper for the World Wide Web Consortium's online validation services."
   s.email    = "code@dunae.ca"

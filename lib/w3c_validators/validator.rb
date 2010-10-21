@@ -1,7 +1,7 @@
 require 'cgi'
 require 'net/http'
 require 'uri'
-require 'rexml/document'
+require 'nokogiri'
 
 require 'w3c_validators/exceptions'
 require 'w3c_validators/constants'
@@ -39,7 +39,7 @@ module W3CValidators
     # +request_mode+ must be either <tt>:get</tt>, <tt>:head</tt> or <tt>:post</tt>.
     #
     # Returns Net::HTTPResponse.
-    def send_request(options, request_mode = :get, following_redirect = false)
+    def send_request(options, request_mode = :get, following_redirect = false, params_to_post = [])
       response = nil
       results = nil
 
@@ -60,8 +60,15 @@ module W3CValidators
             response = http.get(@validator_uri.path + '?' + query)
           when :post
             # send a multipart form request
-            query, boundary = create_multipart_data(options)
-            response = http.post2(@validator_uri.path, query, "Content-type" => "multipart/form-data; boundary=" + boundary)
+            post = {}
+            [params_to_post].flatten.each do |param|
+              post[param] = options.delete(param)
+            end
+              
+            qs = create_query_string_data(options)
+            
+            query, boundary = create_multipart_data(post)
+            response = http.post2(@validator_uri.path + '?' + qs, query, "Content-type" => "multipart/form-data; boundary=" + boundary)
           else
             raise ArgumentError, "request_mode must be either :get, :head or :post"
         end

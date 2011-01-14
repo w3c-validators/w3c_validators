@@ -1,5 +1,6 @@
 $:.unshift(File.dirname(__FILE__) + '/../lib')
 require 'iconv'
+require 'rubygems'
 require 'test/unit'
 require 'w3c_validators'
 

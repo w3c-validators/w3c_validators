@@ -19,7 +19,7 @@ class HTML5ValidatorTests < Test::Unit::TestCase
 
   def test_validating_uri
     r = @v.validate_uri('http://code.dunae.ca/w3c_validators/test/invalid_html5.html')
-    assert_errors r, 1
+    assert_errors r, 2
     assert_warnings r, 1
     assert !r.is_valid?
   end

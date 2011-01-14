@@ -185,7 +185,7 @@ protected
       {:warning => 'warnings warning', :error => 'errorlist error'}.each do |local_type, remote_type|
         doc.css(remote_type).each do |message|
           message_params = {}
-          message.children do |el|
+          message.children.each do |el|
             message_params[el.name.to_sym] = el.text unless el.blank?
           end
           results.add_message(local_type, message_params)

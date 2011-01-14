@@ -1,5 +1,5 @@
 require File.dirname(__FILE__) + '/test_helper'
-
+require 'ruby-debug'
 # Test cases for the MarkupValidator.
 class MarkupValidatorTests < Test::Unit::TestCase
   include W3CValidators
@@ -89,5 +89,10 @@ class MarkupValidatorTests < Test::Unit::TestCase
     end
   end
 
-
+  def test_validator_contains_details_of_error_conditions    
+    r = @v.validate_uri('http://code.dunae.ca/w3c_validators/test/invalid_markup.html')    
+    assert_not_nil r.errors[0].col
+    assert_not_nil r.errors[0].line
+    assert_not_nil r.errors[0].message
+  end
 end

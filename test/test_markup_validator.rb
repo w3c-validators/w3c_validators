@@ -1,5 +1,6 @@
-require File.dirname(__FILE__) + '/test_helper'
+require File.expand_path('test_helper', File.dirname(__FILE__))
 require 'ruby-debug'
+
 # Test cases for the MarkupValidator.
 class MarkupValidatorTests < Test::Unit::TestCase
   include W3CValidators

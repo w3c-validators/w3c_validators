@@ -1,3 +1,6 @@
+$:.unshift File.dirname(__FILE__)
+$:.unshift File.expand_path('../test', __FILE__)
+puts File.dirname(__FILE__)
 require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'

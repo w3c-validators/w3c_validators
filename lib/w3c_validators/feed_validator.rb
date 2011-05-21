@@ -51,7 +51,7 @@ module W3CValidators
 protected
     def validate(options) # :nodoc:
       options = get_request_options(options)
-      response = send_request(options, :get)
+      response = send_request(options, :post)
       @results = parse_soap_response(response.body)
       @results
     end

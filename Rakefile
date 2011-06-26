@@ -1,9 +1,12 @@
-$:.unshift File.dirname(__FILE__)
-$:.unshift File.expand_path('../test', __FILE__)
-puts File.dirname(__FILE__)
+require 'rubygems'
+require 'bundler/setup'
+
+$: << File.expand_path(File.dirname(__FILE__))
+$: << File.expand_path(File.dirname(__FILE__)) + '/test'
+
 require 'rake'
+require 'rdoc/task'
 require 'rake/testtask'
-require 'rake/rdoctask'
 require 'lib/w3c_validators'
 require 'fileutils'
 
@@ -18,7 +21,7 @@ Rake::TestTask.new do |t|
 end
 
 desc 'Generate documentation for W3C Validators.'
-Rake::RDocTask.new(:rdoc) do |rdoc|
+RDoc::Task.new do |rdoc|
   rdoc.rdoc_dir = 'doc'
   rdoc.title    = 'Ruby W3C Validators'
   rdoc.options << '--all' << '--inline-source' << '--line-numbers'

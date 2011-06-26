@@ -1,9 +1,14 @@
-source "http://rubygems.org"
+source 'http://rubygems.org'
 
-gem "rake"
-gem "nokogiri"
-gem "json"
+gem 'rake'
+gem 'nokogiri'
+gem 'json'
 
-group :development do
-  gem "rdoc"
+group :documentation do
+  gem 'rdoc'
+end
+
+group :debug do
+  gem 'ruby-debug19', :require => 'ruby-debug', :platforms => :ruby_19
+  gem 'ruby-debug', :platforms => :ruby_18
 end

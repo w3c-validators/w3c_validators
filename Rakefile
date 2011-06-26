@@ -17,7 +17,7 @@ Rake::TestTask.new do |t|
   t.libs << 'lib'
   t.libs << 'lib/test'
   t.test_files = FileList['test/test*.rb'].exclude('test_helper.rb')
-  t.verbose = false
+  t.verbose = true
 end
 
 desc 'Generate documentation for W3C Validators.'

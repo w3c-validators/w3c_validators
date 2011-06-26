@@ -16,6 +16,7 @@ module W3CValidators
       else
         @validator_uri = URI.parse(CSS_VALIDATOR_URI)
       end
+      options[:profile] ||= 'css3'
       super(options)
     end
     

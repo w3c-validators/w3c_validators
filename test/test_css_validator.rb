@@ -9,7 +9,6 @@ class CSSValidatorTests < Test::Unit::TestCase
     @invalid_fragment = <<-EOT
     a { color: white; }
     body { margin: blue; }
-    
     EOT
 
     sleep 1
@@ -32,7 +31,7 @@ class CSSValidatorTests < Test::Unit::TestCase
     r = @v.validate_text(@invalid_fragment)
     assert_errors r, 1
   end
- 
+
   def test_validating_text
     r = @v.validate_text(@invalid_fragment)
     assert_errors r, 1
@@ -40,12 +39,17 @@ class CSSValidatorTests < Test::Unit::TestCase
 
   def test_validating_text_via_file
     file_path = File.expand_path(File.dirname(__FILE__) + '/fixtures/invalid_css.css')
-    fh = File.new(file_path, 'r+')    
+    fh = File.new(file_path, 'r+')
     r = @v.validate_file(fh)
     fh.close
     assert_errors r, 1
   end
 
+  def test_disabling_of_vendor_extension_errors
+    @v.vendor_extensions_as_warnings!
+    r = @v.validate_text("p { -moz-border-radius: 5px; }")
+    assert_errors r, 0
+    assert_warnings r, 1
+  end
 
- 
 end

@@ -16,9 +16,9 @@ class CSSValidatorTests < Test::Unit::TestCase
   end
 
   def test_overriding_css_profile
-    @v.set_profile!(:svgbasic)
+    @v.set_profile!(:css1)
     r = @v.validate_text(@invalid_fragment)
-    assert_equal 'svgbasic', r.css_level
+    assert_equal 'css1', r.css_level
   end
 
   def test_validating_file

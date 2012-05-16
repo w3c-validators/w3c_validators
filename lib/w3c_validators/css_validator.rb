@@ -51,6 +51,13 @@ module W3CValidators
       @options[:lang] = lang
     end
 
+    # whether to treat presence of CSS vendor extension as error or merely a warning
+    def set_vendor_extension_warning!(level = 'Default')
+      @options[:vextwarning] = nil     if level.to_s.downcase == 'default'
+      @options[:vextwarning] = 'true'  if level.to_s.downcase == 'warnings'
+      @options[:vextwarning] = 'false' if level.to_s.downcase == 'errors'
+    end
+
     # Validate the CSS of an URI.
     #
     # Returns W3CValidators::Results.

@@ -15,6 +15,19 @@ class CSSValidatorTests < Test::Unit::TestCase
     sleep 1
   end
 
+  def test_vendor_extensions_as_errors
+    @v.set_vendor_extension_warning!('Errors')
+    r = @v.validate_text('some-class { -moz-border-radius: 3px; }')
+    assert_errors r, 1
+  end
+
+  def test_vendor_extensions_as_warnings
+    @v.set_vendor_extension_warning!('Warnings')
+    r = @v.validate_text('some-class { -moz-border-radius: 3px; }')
+    assert_no_errors r
+    assert_warnings r, 1
+  end
+
   def test_overriding_css_profile
     @v.set_profile!(:svgbasic)
     r = @v.validate_text(@invalid_fragment)
@@ -46,6 +59,4 @@ class CSSValidatorTests < Test::Unit::TestCase
     assert_errors r, 1
   end
 
-
- 
 end

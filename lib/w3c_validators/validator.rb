@@ -59,6 +59,9 @@ module W3CValidators
             # send a GET request
             query = create_query_string_data(options)          
             response = http.get(@validator_uri.path + '?' + query)
+
+            # Fix for enabled Net::HTTP.version_1_1
+            response = response.first if response.is_a?(Array)
           when :post
             # send a multipart form request
             if params_to_post

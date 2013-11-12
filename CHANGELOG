@@ -30,3 +30,8 @@
 == Version 1.1
  * Ruby 1.9 compatibility
  * Switched to Nokogiri for XML parsing
+ 
+== Version 1.2
+ * Use CSS3 as default profile 
+ * Use Bundler and update to new RDoc command 
+ * Use POST in feed validator

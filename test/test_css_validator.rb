@@ -46,6 +46,16 @@ class CSSValidatorTests < Test::Unit::TestCase
     assert_errors r, 1
   end
 
+  def test_context
+    file_path = File.expand_path(File.dirname(__FILE__) + '/fixtures/invalid_css.css')
+    results = @v.validate_file(file_path)
+    assert results.errors.first.context == "body"
+  end
 
+  def test_skippedstring
+    file_path = File.expand_path(File.dirname(__FILE__) + '/fixtures/invalid_css.css')
+    results = @v.validate_file(file_path)
+    assert results.errors.first.skippedstring == "blue"
+  end
  
 end

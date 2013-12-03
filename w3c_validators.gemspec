@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-require File.expand_path('../lib/w3c_validators.rb', __FILE__)
+require File.expand_path('../lib/w3c_validators/version.rb', __FILE__)
 
 Gem::Specification.new do |gem|
   gem.authors       = ["Alex Dunae"]
@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = `git ls-files -- {test}/*`.split("\n")
   gem.name          = "w3c_validators"
   gem.require_paths = ["lib"]
-  gem.version       = W3CValidators::Validator::VERSION
+  gem.version       = W3CValidators::VERSION
 
   gem.add_dependency 'nokogiri', '~> 1.6'
   gem.add_dependency 'json'

@@ -12,5 +12,10 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = W3CValidators::Validator::VERSION
 
-  gem.add_dependency 'nokogiri'
+  gem.add_dependency 'nokogiri', '~> 1.6'
+  gem.add_dependency 'json'
+
+  gem.add_development_dependency 'rake'
+  gem.add_development_dependency 'rdoc'
+  gem.add_development_dependency 'ruby-debug19'
 end

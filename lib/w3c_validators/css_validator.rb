@@ -5,7 +5,7 @@ module W3CValidators
     # Create a new instance of the CSSValidator.
     #
     # ==== Options
-    # You can pass in your own validator's URI (i.e. 
+    # You can pass in your own validator's URI (i.e.
     # <tt>CSSValidator.new(:validator_uri => 'http://localhost/check')</tt>).
     #
     # See Validator#new for proxy server options.
@@ -19,7 +19,7 @@ module W3CValidators
       options[:profile] ||= 'css3'
       super(options)
     end
-    
+
     # The CSS profile used for the validation.
     #
     # +charset+ can be a string or a symbl from the W3CValidators::CSS_PROFILES hash.
@@ -51,6 +51,11 @@ module W3CValidators
       @options[:lang] = lang
     end
 
+    # Throw warnings instead of errors regarding vendor extensions
+    def vendor_extensions_as_warnings!
+      @options[:vextwarning] = true
+    end
+
     # Validate the CSS of an URI.
     #
     # Returns W3CValidators::Results.
@@ -64,7 +69,7 @@ module W3CValidators
     def validate_text(text)
       return validate({:text => text})
     end
-    
+
     # Validate the CSS of a local file.
     #
     # +file_path+ may be either the fully-expanded path to the file or
@@ -76,7 +81,7 @@ module W3CValidators
         src = file_path.read
       else
         src = read_local_file(file_path)
-      end 
+      end
       return validate_text(src)
     end
 
@@ -84,7 +89,7 @@ module W3CValidators
 protected
     def validate(options) # :nodoc:
       options = get_request_options(options)
-      response = send_request(options, :get)
+      response = send_request(options, :post)
       @results = parse_soap_response(response.body)
       @results
     end
@@ -92,9 +97,9 @@ protected
     # Perform sanity checks on request params
     def get_request_options(options) # :nodoc:
       options = @options.merge(options)
-     
+
       options[:output] = SOAP_OUTPUT_PARAM
-      
+
       unless options[:uri] or options[:text]
         raise ArgumentError, "an uri or text is required."
       end
@@ -111,11 +116,11 @@ protected
 
     def parse_soap_response(response) # :nodoc:
       doc = Nokogiri::XML(response)
-      doc.remove_namespaces! 
+      doc.remove_namespaces!
 
       result_params = {}
 
-      {:uri => 'uri', :checked_by => 'checkedby', :validity => 'validity', :css_level => 'csslevel'}.each do |local_key, remote_key|        
+      {:uri => 'uri', :checked_by => 'checkedby', :validity => 'validity', :css_level => 'csslevel'}.each do |local_key, remote_key|
         if val = doc.at('cssvalidationresponse ' + remote_key)
           result_params[local_key] = val.text
         end
@@ -124,7 +129,7 @@ protected
       results = Results.new(result_params)
 
       ['warninglist', 'errorlist'].each do |list_type|
-        doc.css(list_type).each do |message_list|        
+        doc.css(list_type).each do |message_list|
 
           if uri_node = message_list.at('uri')
             uri = uri_node.text
@@ -148,6 +153,6 @@ protected
       handle_exception e
     end
 
-  
+
   end
 end

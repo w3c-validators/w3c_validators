@@ -61,8 +61,8 @@ module W3CValidators
     # Validate the CSS of a string.
     #
     # Returns W3CValidators::Results.
-    def validate_text(text)
-      return validate({:text => text})
+    def validate_text(text, request_mode = :get)
+      return validate({:text => text}, request_mode)
     end
     
     # Validate the CSS of a local file.
@@ -77,14 +77,16 @@ module W3CValidators
       else
         src = read_local_file(file_path)
       end 
-      return validate_text(src)
+      # we force the :post mode otherwise it fails for
+      # big files
+      return validate_text(src, :post)
     end
 
 
 protected
-    def validate(options) # :nodoc:
+    def validate(options, request_mode = :get) # :nodoc:
       options = get_request_options(options)
-      response = send_request(options, :get)
+      response = send_request(options, request_mode)
       @results = parse_soap_response(response.body)
       @results
     end

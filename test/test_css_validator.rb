@@ -55,4 +55,15 @@ class CSSValidatorTests < Test::Unit::TestCase
       assert_errors r, 1
     end
   end
+
+  def test_validating_big_file
+    VCR.use_cassette('css_validating_big_file') do
+      file_path = File.expand_path(File.dirname(__FILE__) + '/fixtures/bootstrap.min.css')
+      fh = File.new(file_path, 'r+')
+      r = @v.validate_file(fh)
+      fh.close
+      assert_errors r
+    end
+  end
+ 
 end

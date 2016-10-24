@@ -16,36 +16,43 @@ class CSSValidatorTests < Test::Unit::TestCase
   end
 
   def test_overriding_css_profile
-    @v.set_profile!(:svgbasic)
-    r = @v.validate_text(@invalid_fragment)
-    assert_equal 'svgbasic', r.css_level
+    VCR.use_cassette('css_overriding_css_profile') do
+      @v.set_profile!(:css21)
+      r = @v.validate_text(@invalid_fragment)
+      assert_equal 'css21', r.css_level
+    end
   end
 
   def test_validating_file
-    file_path = File.expand_path(File.dirname(__FILE__) + '/fixtures/invalid_css.css')
-    r = @v.validate_file(file_path)
-    assert_errors r, 1
+    VCR.use_cassette('css_validating_file') do
+      file_path = File.expand_path(File.dirname(__FILE__) + '/fixtures/invalid_css.css')
+      r = @v.validate_file(file_path)
+      assert_errors r, 1
+    end
   end
 
   def test_validating_uri
-    @v.set_profile!(:svgbasic)
-    r = @v.validate_text(@invalid_fragment)
-    assert_errors r, 1
+    VCR.use_cassette('css_validating_uri') do
+      @v.set_profile!(:svgbasic)
+      r = @v.validate_text(@invalid_fragment)
+      assert_errors r, 1
+    end
   end
- 
+
   def test_validating_text
-    r = @v.validate_text(@invalid_fragment)
-    assert_errors r, 1
+    VCR.use_cassette('css_validating_text') do
+      r = @v.validate_text(@invalid_fragment)
+      assert_errors r, 1
+    end
   end
 
   def test_validating_text_via_file
-    file_path = File.expand_path(File.dirname(__FILE__) + '/fixtures/invalid_css.css')
-    fh = File.new(file_path, 'r+')    
-    r = @v.validate_file(fh)
-    fh.close
-    assert_errors r, 1
+    VCR.use_cassette('css_validating_text_via_file') do
+      file_path = File.expand_path(File.dirname(__FILE__) + '/fixtures/invalid_css.css')
+      fh = File.new(file_path, 'r+')
+      r = @v.validate_file(fh)
+      fh.close
+      assert_errors r, 1
+    end
   end
-
-
- 
 end

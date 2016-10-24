@@ -1,8 +1,13 @@
 $:.unshift(File.dirname(__FILE__) + '/../lib')
-require 'iconv'
 require 'rubygems'
 require 'test/unit'
 require 'w3c_validators'
+require 'vcr'
+
+VCR.configure do |config|
+  config.cassette_library_dir = "test/http_recording"
+  config.hook_into :webmock # or :fakeweb
+end
 
 class Test::Unit::TestCase
 

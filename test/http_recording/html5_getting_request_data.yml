@@ -1,0 +1,49 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://html5.validator.nu/?doc=https://doc75.github.io/w3c_validators_tests/valid_html5.html&out=json&parser=html&showsource=yes
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.11.5
+      Date:
+      - Tue, 25 Oct 2016 19:30:51 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Accept-Encoding:
+      - gzip
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - content-type
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Cache-Control:
+      - no-cache
+      Vary:
+      - Accept-Encoding, User-Agent
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {"url":"https://doc75.github.io/w3c_validators_tests/valid_html5.html","messages":[],"source":{"type":"text/html","encoding":"utf-8","code":"<!DOCTYPE html>\n<html lang=\"en-ca\">\n  <head>\n\t<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\">\n    <title>HTML 5 Example</title>\n  </head>\n  <body>\n    <p>This is a sample HTML 5 document.</p>\n    <section>\n\t  <h1>Example of paragraphs</h1>\n\t  This is the <em>first</em> paragraph in this example.\n\t  <p>This is the second.</p>\n\t  <!-- This is not a paragraph. -->\n\t</section>\n  </body>\n</html>"}}
+    http_version: 
+  recorded_at: Tue, 25 Oct 2016 19:30:51 GMT
+recorded_with: VCR 3.0.3

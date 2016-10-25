@@ -1,15 +1,15 @@
 module W3CValidators
   class MarkupValidator < Validator
-    MARKUP_VALIDATOR_URI      = 'http://validator.w3.org/check'
+    MARKUP_VALIDATOR_URI      = 'https://validator.w3.org/check'
 
     # Create a new instance of the MarkupValidator.
     #
     # ==== Options
-    # The +options+ hash allows you to set request parameters (see 
-    # http://validator.w3.org/docs/api.html#requestformat) quickly. Request 
+    # The +options+ hash allows you to set request parameters (see
+    # http://validator.w3.org/docs/api.html#requestformat) quickly. Request
     # parameters can also be set using set_charset!, set_debug! and set_doctype!.
     #
-    # You can pass in your own validator's URI (i.e. 
+    # You can pass in your own validator's URI (i.e.
     # <tt>MarkupValidator.new(:validator_uri => 'http://localhost/check')</tt>).
     #
     # See Validator#new for proxy server options.
@@ -22,14 +22,14 @@ module W3CValidators
       end
       super(options)
     end
-    
-    # Specify the character encoding to use when parsing the document. 
+
+    # Specify the character encoding to use when parsing the document.
     #
-    # When +only_as_fallback+ is +true+, the given encoding will only be 
-    # used as a fallback value, in case the +charset+ is absent or unrecognized. 
+    # When +only_as_fallback+ is +true+, the given encoding will only be
+    # used as a fallback value, in case the +charset+ is absent or unrecognized.
     #
-    # +charset+ can be a string (e.g. <tt>set_charset!('utf-8')</tt>) or 
-    # a symbol (e.g. <tt>set_charset!(:utf_8)</tt>) from the 
+    # +charset+ can be a string (e.g. <tt>set_charset!('utf-8')</tt>) or
+    # a symbol (e.g. <tt>set_charset!(:utf_8)</tt>) from the
     # W3CValidators::CHARSETS hash.
     #
     # Has no effect when using validate_uri_quickly.
@@ -45,14 +45,14 @@ module W3CValidators
       @options[:fbc] = only_as_fallback
     end
 
-    # Specify the Document Type (+DOCTYPE+) to use when parsing the document. 
+    # Specify the Document Type (+DOCTYPE+) to use when parsing the document.
     #
-    # When +only_as_fallback+ is +true+, the given document type will only be 
-    # used as a fallback value, in case the document's +DOCTYPE+ declaration 
+    # When +only_as_fallback+ is +true+, the given document type will only be
+    # used as a fallback value, in case the document's +DOCTYPE+ declaration
     # is missing or unrecognized.
     #
-    # +doctype+ can be a string (e.g. <tt>set_doctype!('HTML 3.2')</tt>) or 
-    # a symbol (e.g. <tt>set_doctype!(:html32)</tt>) from the 
+    # +doctype+ can be a string (e.g. <tt>set_doctype!('HTML 3.2')</tt>) or
+    # a symbol (e.g. <tt>set_doctype!(:html32)</tt>) from the
     # W3CValidators::DOCTYPES hash.
     #
     # Has no effect when using validate_uri_quickly.
@@ -68,11 +68,11 @@ module W3CValidators
       @options[:fbd] = only_as_fallback
     end
 
-    # When set the validator will output some extra debugging information on 
-    # the validated resource (such as HTTP headers) and validation process 
+    # When set the validator will output some extra debugging information on
+    # the validated resource (such as HTTP headers) and validation process
     # (such as parser used, parse mode, etc.).
     #
-    # Debugging information is stored in the Results +debug_messages+ hash. 
+    # Debugging information is stored in the Results +debug_messages+ hash.
     # Custom debugging messages can be set with Results#add_debug_message.
     #
     # Has no effect when using validate_uri_quickly.
@@ -100,7 +100,7 @@ module W3CValidators
     def validate_text(text)
       return validate({:fragment => text}, false)
     end
-    
+
     # Validate the markup of a local file.
     #
     # +file_path+ may be either the fully-expanded path to the file or
@@ -112,7 +112,7 @@ module W3CValidators
         src = file_path.read
       else
         src = read_local_file(file_path)
-      end 
+      end
 
       return validate({:uploaded_file => src, :file_path => file_path}, false)
     end
@@ -138,9 +138,9 @@ protected
     # Perform sanity checks on request params
     def get_request_options(options) # :nodoc:
       options = @options.merge(options)
-     
+
       options[:output] = SOAP_OUTPUT_PARAM
-      
+
       unless options[:uri] or options[:uploaded_file] or options[:fragment]
         raise ArgumentError, "an uri, uploaded file or fragment is required."
       end
@@ -150,7 +150,7 @@ protected
       if options[:uri] and not options[:uri].kind_of?(String)
         options[:uri] = options[:uri].to_s
       end
-      
+
       # Convert booleans to integers
       [:fbc, :fbd, :verbose, :debug, :ss, :outline].each do |k|
         if options.has_key?(k) and not options[k].kind_of?(Fixnum)
@@ -169,12 +169,12 @@ protected
     # Returns W3CValidators::Results.
     def parse_soap_response(response) # :nodoc:
       doc = Nokogiri::XML(response)
-      doc.remove_namespaces! 
+      doc.remove_namespaces!
 
       result_params = {}
 
-      {:doctype => 'doctype', :uri => 'uri', :charset => 'charset', 
-       :checked_by => 'checkedby', :validity => 'validity'}.each do |local_key, remote_key|        
+      {:doctype => 'doctype', :uri => 'uri', :charset => 'charset',
+       :checked_by => 'checkedby', :validity => 'validity'}.each do |local_key, remote_key|
         if val = doc.css(remote_key)
           result_params[local_key] = val.text
         end
@@ -195,7 +195,7 @@ protected
       doc.css("Fault Reason Text").each do |message|
         results.add_message(:error, {:mesage => message.text})
       end
-      
+
       doc.css("markupvalidationresponse debug").each do |debug|
         results.add_debug_message(debug.attribute('name').value, debug.text)
       end
@@ -212,7 +212,7 @@ protected
     # Returns Results.
     def parse_head_response(response, validated_uri = nil) # :nodoc:
       validity = (response[HEAD_STATUS_HEADER].downcase == 'valid')
-      
+
       results = Results.new(:uri => validated_uri, :validity => validity)
 
       # Fill the results with empty error messages so we can count them
@@ -222,6 +222,6 @@ protected
       results
     end
 
-  
+
   end
 end

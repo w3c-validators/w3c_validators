@@ -28,7 +28,7 @@ module W3CValidators
     # - +proxy_user+
     # - +proxy_pass+
     def initialize(options = {})
-      @options = {:proxy_host => nil, 
+      @options = {:proxy_host => nil,
                   :proxy_port => nil,
                   :proxy_user => nil,
                   :proxy_pass => nil}.merge(options)
@@ -45,8 +45,8 @@ module W3CValidators
 
       Net::HTTP::Proxy(@options[:proxy_host], 
                        @options[:proxy_port],
-                       @options[:proxy_user], 
-                       @options[:proxy_pass]).start(@validator_uri.host, @validator_uri.port) do |http|    
+                       @options[:proxy_user],
+                       @options[:proxy_pass]).start(@validator_uri.host, @validator_uri.port) do |http|
 
         case request_mode
           when :head
@@ -54,9 +54,9 @@ module W3CValidators
             raise ArgumentError, "a URI must be provided for HEAD requests." unless options[:uri]
             query = create_query_string_data(options)
             response = http.request_head(@validator_uri.path + '?' + query)
-          when :get 
+          when :get
             # send a GET request
-            query = create_query_string_data(options)          
+            query = create_query_string_data(options)
             response = http.get(@validator_uri.path + '?' + query)
           when :post
             # send a multipart form request
@@ -69,10 +69,11 @@ module W3CValidators
               post = options
               options = {}
             end
-              
+
             qs = create_query_string_data(options)
-            
+
             query, boundary = create_multipart_data(post)
+            http.use_ssl = true if @validator_uri.port == 443
             response = http.post2(@validator_uri.path + '?' + qs, query, "Content-type" => "multipart/form-data; boundary=" + boundary)
           else
             raise ArgumentError, "request_mode must be either :get, :head or :post"
@@ -110,7 +111,7 @@ module W3CValidators
         options.delete(:uploaded_file)
         options.delete(:file_path)
       end
-      
+
       if options[:content]
           last_params << "Content-Disposition: form-data; name=\"#{CGI::escape('content')}\"\r\n" + "\r\n" + "#{options[:content]}\r\n"
       end
@@ -124,14 +125,14 @@ module W3CValidators
 
       params = misc_params + last_params
 
-      multipart_query = params.collect {|p| '--' + boundary + "\r\n" + p}.join('') + "--" + boundary + "--\r\n" 
+      multipart_query = params.collect {|p| '--' + boundary + "\r\n" + p}.join('') + "--" + boundary + "--\r\n"
 
       [multipart_query, boundary]
     end
 
     def create_query_string_data(options) # :nodoc:
       qs = ''
-      options.each do |key, value| 
+      options.each do |key, value|
         if value
           qs += "#{key}=" + CGI::escape(value.to_s) + "&"
         end
@@ -148,7 +149,7 @@ module W3CValidators
     # Big thanks to ara.t.howard and Joel VanderWerf on Ruby-Talk for the exception handling help.
     #++
     def handle_exception(e, msg = '') # :nodoc:
-      case e      
+      case e
         when Net::HTTPServerException, SocketError
           msg = "unable to connect to the validator at #{@validator_uri} (response was #{e.message})."
           raise ValidatorUnavailable, msg, caller
@@ -182,6 +183,6 @@ module W3CValidators
       exit_status(( exit_failure )) if exit_status == exit_success
       exit_status(( Integer(exit_status) rescue(exit_status ? 0 : 1) ))
       exit exit_status
-    end 
+    end
   end
 end

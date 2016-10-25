@@ -42,9 +42,8 @@ module W3CValidators
     # Returns Net::HTTPResponse.
     def send_request(options, request_mode = :get, following_redirect = false, params_to_post = nil)
       response = nil
-      results = nil
 
-      r = Net::HTTP::Proxy(@options[:proxy_host], 
+      Net::HTTP::Proxy(@options[:proxy_host], 
                        @options[:proxy_port],
                        @options[:proxy_user], 
                        @options[:proxy_pass]).start(@validator_uri.host, @validator_uri.port) do |http|    

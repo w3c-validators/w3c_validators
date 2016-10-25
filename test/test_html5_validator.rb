@@ -9,30 +9,34 @@ class HTML5ValidatorTests < Test::Unit::TestCase
   end
 
   def test_getting_request_data
-    r = @v.validate_uri('http://code.dunae.ca/w3c_validators/test/valid_html5.html')
-    assert_equal :html5, r.doctype
-    assert_equal 'http://code.dunae.ca/w3c_validators/test/valid_html5.html', r.uri
-    assert_no_errors r
-    assert_no_warnings r
-    assert r.is_valid?
+    VCR.use_cassette('html5_getting_request_data') do
+      r = @v.validate_uri('https://doc75.github.io/w3c_validators_tests/valid_html5.html')
+      assert_equal :html5, r.doctype
+      assert_equal 'https://doc75.github.io/w3c_validators_tests/valid_html5.html', r.uri
+      assert_no_errors r
+      assert_no_warnings r
+      assert r.is_valid?
+    end
   end
 
   def test_validating_uri
-    r = @v.validate_uri('http://code.dunae.ca/w3c_validators/test/invalid_html5.html')
-    assert_errors r, 2
-    assert_warnings r, 1
-    assert !r.is_valid?
+    VCR.use_cassette('html5_validating_uri') do
+      r = @v.validate_uri('https://doc75.github.io/w3c_validators_tests/invalid_html5.html')
+      assert_errors r, 2
+      assert_no_warnings r
+      assert !r.is_valid?
+    end
   end
 
   def test_validating_file
-    skip("Pending, broken")
+    omit("Pending, broken")
     file = File.dirname(__FILE__) + '/fixtures/invalid_html5.html'
     r = @v.validate_file(file)
     assert_errors r, 1
   end
 
   def test_validating_text
-    skip("Pending, broken")
+    omit("Pending, broken")
     valid_fragment = <<-EOV
     <!DOCTYPE html>
     <html lang="en-ca">

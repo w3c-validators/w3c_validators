@@ -36,10 +36,10 @@ validator.  You can set your own validator like this:
 
 You can use a proxy server by passing in its information in the contructor.
 
-  validator = MarkupValidator.new(:proxy_server => 'proxy.example.com',
-                                  :proxy_port   => 80,
-                                  :proxy_user   => 'optional',
-                                  :proxy_pass   => 'optional')
+  validator = MarkupValidator.new(:proxy_host => 'proxy.example.com',
+                                  :proxy_port => 80,
+                                  :proxy_user => 'optional',
+                                  :proxy_pass => 'optional')
 
 === Examples
 

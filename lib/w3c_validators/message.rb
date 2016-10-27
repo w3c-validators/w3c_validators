@@ -1,7 +1,7 @@
 module W3CValidators
   class Message
     attr_accessor :type, :line, :col, :source, :explanation, :message, :message_id
-    attr_accessor :message_count, :element, :parent, :value
+    attr_accessor :message_count, :element, :parent, :value, :context, :skippedstring
     
     MESSAGE_TYPES = [:warning, :error]
 
@@ -31,6 +31,8 @@ module W3CValidators
     # * +level+
     # * +line+
     # * +message+
+    # * +context+
+    # * +skippedstring+
     # See http://jigsaw.w3.org/css-validator/api.html#soap12message for full explanations.
     def initialize(uri, message_type, options = {})
       @type = message_type
@@ -54,7 +56,9 @@ module W3CValidators
       @value = options[:value]
 
       # CSSValidator
-      @level = options[:level]
+      @level          = options[:level]
+      @context        = options[:context].strip       if options[:context]
+      @skippedstring  = options[:skippedstring].strip if options[:skippedstring]
     end
 
     def is_warning?

@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://validator.w3.org/check?charset=utf-16&fbc=0&output=soap12&uri=https://doc75.github.io/w3c_validators_tests/invalid_markup_2.html
+    uri: https://validator.w3.org/check?charset=utf-16&fbc=0&output=soap12&uri=https://doc75.github.io/w3c_validators_tests/invalid_markup_2.html
     body:
       encoding: US-ASCII
       string: ''
@@ -10,39 +10,39 @@ http_interactions:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
-      - ! '*/*'
+      - "*/*"
       User-Agent:
       - Ruby
   response:
     status:
       code: 200
-      message: !binary |-
-        T0s=
+      message: OK
     headers:
-      !binary "RGF0ZQ==":
-      - !binary |-
-        VHVlLCAyNSBPY3QgMjAxNiAxOTowOTozOSBHTVQ=
-      !binary "U2VydmVy":
-      - !binary |-
-        QXBhY2hlLzIuNC4xMCAoRGViaWFuKQ==
-      !binary "WC1XM2MtVmFsaWRhdG9yLVJlY3Vyc2lvbg==":
-      - !binary |-
-        MQ==
-      !binary "WC1XM2MtVmFsaWRhdG9yLVN0YXR1cw==":
-      - !binary |-
-        SW52YWxpZA==
-      !binary "WC1XM2MtVmFsaWRhdG9yLUVycm9ycw==":
-      - !binary |-
-        Mg==
-      !binary "WC1XM2MtVmFsaWRhdG9yLVdhcm5pbmdz":
-      - !binary |-
-        Mg==
-      !binary "VHJhbnNmZXItRW5jb2Rpbmc=":
-      - !binary |-
-        Y2h1bmtlZA==
-      !binary "Q29udGVudC1UeXBl":
-      - !binary |-
-        YXBwbGljYXRpb24vc29hcCt4bWw7IGNoYXJzZXQ9VVRGLTg=
+      Date:
+      - Thu, 27 Oct 2016 19:48:23 GMT
+      Server:
+      - Apache/2.4.10 (Debian)
+      X-W3c-Validator-Recursion:
+      - '1'
+      X-W3c-Validator-Status:
+      - Invalid
+      X-W3c-Validator-Errors:
+      - '2'
+      X-W3c-Validator-Warnings:
+      - '2'
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/soap+xml; charset=UTF-8
+      Strict-Transport-Security:
+      - max-age=15552015; preload
+      Public-Key-Pins:
+      - pin-sha256="cN0QSpPIkuwpT6iP2YjEo1bEwGpH/yiUn6yhdy+HNto="; pin-sha256="WGJkyYjx1QMdMe0UqlyOKXtydPDVrk7sl2fV+nNm1r4=";
+        pin-sha256="LrKdTxZLRTvyHM4/atX2nquX9BeHRZMCxg3cf4rhc2I="; max-age=864000
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
     body:
       encoding: ASCII-8BIT
       string: !binary |-
@@ -121,5 +121,5 @@ http_interactions:
         PgogICAgPC9tOmVycm9ycz4KPC9tOm1hcmt1cHZhbGlkYXRpb25yZXNwb25z
         ZT4KPC9lbnY6Qm9keT4KPC9lbnY6RW52ZWxvcGU+Cg==
     http_version: 
-  recorded_at: Tue, 25 Oct 2016 19:09:40 GMT
+  recorded_at: Thu, 27 Oct 2016 19:48:24 GMT
 recorded_with: VCR 3.0.3

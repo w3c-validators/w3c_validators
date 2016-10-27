@@ -1,3 +1,4 @@
 docs/
 *.gem
-*.gemspec
+.ruby-version
+.ruby-gemset

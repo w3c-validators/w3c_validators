@@ -43,43 +43,45 @@ module W3CValidators
     def send_request(options, request_mode = :get, following_redirect = false, params_to_post = nil)
       response = nil
 
-      Net::HTTP::Proxy(@options[:proxy_host], 
-                       @options[:proxy_port],
-                       @options[:proxy_user],
-                       @options[:proxy_pass]).start(@validator_uri.host, @validator_uri.port) do |http|
-
-        case request_mode
-          when :head
-            # perform a HEAD request
-            raise ArgumentError, "a URI must be provided for HEAD requests." unless options[:uri]
-            query = create_query_string_data(options)
-            response = http.request_head(@validator_uri.path + '?' + query)
-          when :get
-            # send a GET request
-            query = create_query_string_data(options)
-            response = http.get(@validator_uri.path + '?' + query)
-          when :post
-            # send a multipart form request
-            if params_to_post
-              post = {}
-              [params_to_post].flatten.each do |param|
-                post[param] = options.delete(param)
-              end
-            else
-              post = options
-              options = {}
+      http = Net::HTTP.new(@validator_uri.host,
+                           @validator_uri.port,
+                           @options[:proxy_host],
+                           @options[:proxy_port],
+                           @options[:proxy_user],
+                           @options[:proxy_pass])
+            
+      http.use_ssl = true if @validator_uri.port == 443
+      
+      case request_mode
+        when :head
+          # perform a HEAD request
+          raise ArgumentError, "a URI must be provided for HEAD requests." unless options[:uri]
+          query = create_query_string_data(options)
+          response = http.request_head(@validator_uri.path + '?' + query)
+        when :get
+          # send a GET request
+          query = create_query_string_data(options)
+          response = http.get(@validator_uri.path + '?' + query)
+        when :post
+          # send a multipart form request
+          if params_to_post
+            post = {}
+            [params_to_post].flatten.each do |param|
+              post[param] = options.delete(param)
             end
-
-            qs = create_query_string_data(options)
-
-            query, boundary = create_multipart_data(post)
-            http.use_ssl = true if @validator_uri.port == 443
-            response = http.post2(@validator_uri.path + '?' + qs, query, "Content-type" => "multipart/form-data; boundary=" + boundary)
           else
-            raise ArgumentError, "request_mode must be either :get, :head or :post"
-        end
-      end
+            post = options
+            options = {}
+          end
 
+          qs = create_query_string_data(options)
+
+          query, boundary = create_multipart_data(post)
+          response = http.post2(@validator_uri.path + '?' + qs, query, "Content-type" => "multipart/form-data; boundary=" + boundary)
+        else
+          raise ArgumentError, "request_mode must be either :get, :head or :post"
+      end
+      
       if response.kind_of?(Net::HTTPRedirection) and response['location'] and not following_redirect
         options[:url] = response['location']
         return send_request(options, request_mode, true)

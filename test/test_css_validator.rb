@@ -82,11 +82,29 @@ class CSSValidatorTests < Test::Unit::TestCase
     end
   end
  
-  def test_disabling_of_vendor_extension_errors
-    VCR.use_cassette('css_test_disabling_of_vendor_extension_errors') do
-      @v.vendor_extensions_as_warnings!
+  def test_vendor_extensions_default
+    VCR.use_cassette('css_vendor_extensions_default') do
+      @v.set_vendor_extension_warning!
       r = @v.validate_text("p { -moz-border-radius: 5px; }")
       assert_errors r, 0
+      assert_warnings r, 1
+    end
+  end
+
+  def test_vendor_extensions_as_errors
+    VCR.use_cassette('css_vendor_extensions_as_errors') do
+      @v.set_vendor_extension_warning!('Errors')
+      r = @v.validate_text('some-class { -moz-border-radius: 3px; }')
+      assert_errors r, 1
+      assert_no_warnings r
+    end
+  end
+
+  def test_vendor_extensions_as_warnings
+    VCR.use_cassette('css_vendor_extensions_as_warnings') do
+      @v.set_vendor_extension_warning!('Warnings')
+      r = @v.validate_text('some-class { -moz-border-radius: 3px; }')
+      assert_no_errors r
       assert_warnings r, 1
     end
   end

@@ -1,0 +1,62 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://jigsaw.w3.org/css-validator/validator?output=soap12&profile=css3&text=some-class%20%7B%20-moz-border-radius:%203px%3B%20%7D&vextwarning=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Date:
+      - Sat, 29 Oct 2016 09:21:43 GMT
+      Pragma:
+      - no-cache
+      Transfer-Encoding:
+      - chunked
+      Content-Language:
+      - en
+      Content-Type:
+      - application/soap+xml;charset=utf-8
+      Server:
+      - Jigsaw/2.3.0-beta2
+      Vary:
+      - Accept-Language
+      X-W3c-Validator-Errors:
+      - '0'
+      X-W3c-Validator-Status:
+      - Valid
+    body:
+      encoding: UTF-8
+      string: "<?xml version='1.0' encoding=\"utf-8\"?>\n<env:Envelope xmlns:env=\"http://www.w3.org/2003/05/soap-envelope\">\n
+        \   <env:Body>\n        <m:cssvalidationresponse\n            env:encodingStyle=\"http://www.w3.org/2003/05/soap-encoding\"\n
+        \           xmlns:m=\"http://www.w3.org/2005/07/css-validator\">\n            <m:uri>file://localhost/TextArea</m:uri>\n
+        \           <m:checkedby>http://jigsaw.w3.org/css-validator/</m:checkedby>\n
+        \           <m:csslevel>css3</m:csslevel>\n            <m:date>2016-10-29T09:21:43Z</m:date>\n
+        \           <m:validity>true</m:validity>\n            <m:result>\n                <m:errors
+        xml:lang=\"en\">\n                    <m:errorcount>0</m:errorcount>\n    \n
+        \               </m:errors>\n                <m:warnings xml:lang=\"en\">\n
+        \                   <m:warningcount>1</m:warningcount>\n                                    \n
+        \                   <m:warninglist>\n                        <m:uri>file://localhost/TextArea</m:uri>\n
+        \                                   \n                        <m:warning>\n
+        \                           <m:line>1</m:line>\n                            <m:level>0</m:level>\n
+        \                           <m:message>Property -moz-border-radius is an unknown
+        vendor extension</m:message>\n                            <m:type>vendor-extension</m:type>\n
+        \                       </m:warning>\n                    \n                    </m:warninglist>\n
+        \                   </m:warnings>\n            </m:result>\n        </m:cssvalidationresponse>\n
+        \   </env:Body>\n</env:Envelope>\n\n"
+    http_version: 
+  recorded_at: Sat, 29 Oct 2016 09:21:43 GMT
+recorded_with: VCR 3.0.3

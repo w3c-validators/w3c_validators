@@ -36,7 +36,7 @@ class MarkupValidatorTests < Test::Unit::TestCase
     omit("Pending, to prevent w3.org abuse")
     VCR.use_cassette('markup_overriding_charset_for_fallback_only') do
       @v.set_doctype!(:utf_16, true)
-      r = @v.validate_uri('https://doc75.github.io/w3c_validators_tests/invalid_markup_3.html')
+      r = @v.validate_uri('https://doc75.github.io/w3c_validators_tests/markup_overriding_charset_for_fallback_only.html')
       assert_not_equal 'utf-16', r.charset
     end
   end

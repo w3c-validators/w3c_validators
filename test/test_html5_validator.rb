@@ -29,34 +29,38 @@ class HTML5ValidatorTests < Test::Unit::TestCase
   end
 
   def test_validating_file
-    omit("Pending, broken")
-    file = File.dirname(__FILE__) + '/fixtures/invalid_html5.html'
-    r = @v.validate_file(file)
-    assert_errors r, 1
+    omit('Pending, broken')
+    VCR.use_cassette('html5_validating_file') do
+      file = File.dirname(__FILE__) + '/fixtures/invalid_html5.html'
+      r = @v.validate_file(file)
+      assert_errors r, 1
+    end
   end
 
   def test_validating_text
-    omit("Pending, broken")
-    valid_fragment = <<-EOV
-    <!DOCTYPE html>
-    <html lang="en-ca">
-      <head>
-        <title>HTML 5 Example</title>
-      </head>
-      <body>
-        <!-- should have one error (missing </section>) -->
-        <p>This is a sample HTML 5 document.</p>
-        <section>
-        <h1>Example of paragraphs</h1>
-        This is the <em>first</em> paragraph in this example.
-        <p>This is the second.</p>
-        <p>Test<br>test</p>
-      </body>
-    </html>
-    EOV
+    omit('Pending, broken')
+    VCR.use_cassette('html5_validating_text') do
+      valid_fragment = <<-EOV
+      <!DOCTYPE html>
+      <html lang="en-ca">
+        <head>
+          <title>HTML 5 Example</title>
+        </head>
+        <body>
+          <!-- should have one error (missing </section>) -->
+          <p>This is a sample HTML 5 document.</p>
+          <section>
+          <h1>Example of paragraphs</h1>
+          This is the <em>first</em> paragraph in this example.
+          <p>This is the second.</p>
+          <p>Test<br>test</p>
+        </body>
+      </html>
+      EOV
     
-    r = @v.validate_text(valid_fragment)
-    assert_errors r, 1
+      r = @v.validate_text(valid_fragment)
+      assert_errors r, 1
+    end
   end
 
   #def test_validating_text_via_file

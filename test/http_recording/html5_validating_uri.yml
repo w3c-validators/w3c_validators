@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://html5.validator.nu/?doc=https://doc75.github.io/w3c_validators_tests/invalid_html5.html&out=json&parser=html&showsource=yes
+    uri: https://validator.nu/?doc=https://doc75.github.io/w3c_validators_tests/invalid_html5.html&out=json&parser=html&showsource=yes
     body:
       encoding: US-ASCII
       string: ''
@@ -21,7 +21,7 @@ http_interactions:
       Server:
       - nginx/1.11.5
       Date:
-      - Tue, 25 Oct 2016 19:30:54 GMT
+      - Sun, 30 Oct 2016 20:00:05 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -40,6 +40,8 @@ http_interactions:
       - no-cache
       Vary:
       - Accept-Encoding, User-Agent
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
     body:
       encoding: ASCII-8BIT
       string: !binary |-
@@ -68,5 +70,5 @@ http_interactions:
         IHRoZSBzZWNvbmQuPC9wPlxuXHQgIDxwPlRlc3Q8YnI+dGVzdDwvcD5cbiAg
         PC9ib2R5PlxuPC9odG1sPiJ9fQo=
     http_version: 
-  recorded_at: Tue, 25 Oct 2016 19:30:54 GMT
+  recorded_at: Sun, 30 Oct 2016 20:00:05 GMT
 recorded_with: VCR 3.0.3

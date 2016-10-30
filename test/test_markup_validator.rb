@@ -33,7 +33,6 @@ class MarkupValidatorTests < Test::Unit::TestCase
   end
 
   def test_overriding_charset_for_fallback_only
-    omit("Pending, to prevent w3.org abuse")
     VCR.use_cassette('markup_overriding_charset_for_fallback_only') do
       @v.set_doctype!(:utf_16, true)
       r = @v.validate_uri('https://doc75.github.io/w3c_validators_tests/markup_overriding_charset_for_fallback_only.html')
@@ -42,7 +41,6 @@ class MarkupValidatorTests < Test::Unit::TestCase
   end
 
   def test_validating_uri_with_head_request
-    omit("Pending, to prevent w3.org abuse")
     VCR.use_cassette('markup_validating_uri_with_head_request') do
       r = @v.validate_uri_quickly('https://doc75.github.io/w3c_validators_tests/invalid_markup_4.html')
       assert_errors r, 1
@@ -50,7 +48,6 @@ class MarkupValidatorTests < Test::Unit::TestCase
   end
 
   def test_validating_uri_with_soap
-    omit("Pending, to prevent w3.org abuse")
     VCR.use_cassette('markup_validating_uri_with_soap') do
       r = @v.validate_uri('https://doc75.github.io/w3c_validators_tests/invalid_markup_5.html')
       assert_errors r, 1
@@ -59,7 +56,6 @@ class MarkupValidatorTests < Test::Unit::TestCase
   end
 
   def test_debugging_uri
-    omit("Pending, to prevent w3.org abuse")
     VCR.use_cassette('markup_debugging_uri') do
       @v.set_debug!
       r = @v.validate_uri('https://doc75.github.io/w3c_validators_tests/invalid_markup_6.html')
@@ -104,7 +100,6 @@ class MarkupValidatorTests < Test::Unit::TestCase
 
 
   def test_validator_abort
-    omit("Pending, to prevent w3.org abuse")
     VCR.use_cassette('markup_validator_abort') do
       @v.set_debug!
       assert_nothing_raised do
@@ -117,7 +112,6 @@ class MarkupValidatorTests < Test::Unit::TestCase
   end
 
   def test_validator_contains_details_of_error_conditions
-    omit("Pending, to prevent w3.org abuse")
     VCR.use_cassette('markup_validator_contains_details_of_error_conditions') do
       r = @v.validate_uri('https://doc75.github.io/w3c_validators_tests/invalid_markup_7.html')
       assert_not_nil r.errors[0].col

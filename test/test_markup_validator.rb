@@ -68,7 +68,6 @@ class MarkupValidatorTests < Test::Unit::TestCase
   end
 
   def test_validating_file
-    omit("Pending, to prevent w3.org abuse")
     VCR.use_cassette('markup_validating_file') do
       file = File.dirname(__FILE__) + '/fixtures/invalid_markup.html'
       r = @v.validate_file(file)
@@ -79,7 +78,6 @@ class MarkupValidatorTests < Test::Unit::TestCase
   end
 
   def test_validating_text
-    omit("Pending, broken")
     VCR.use_cassette('markup_validating_text') do
       valid_fragment = <<-EOV
         <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -91,12 +89,11 @@ class MarkupValidatorTests < Test::Unit::TestCase
 
       r = @v.validate_text(valid_fragment)
       assert_no_errors r
-      assert_no_warnings r
+      assert_warnings r, 2
     end
   end
 
   def test_validating_text_via_file
-    omit("Pending, to prevent w3.org abuse")
     VCR.use_cassette('markup_validating_text_via_file') do
       fh = File.new(File.dirname(__FILE__) + '/fixtures/invalid_markup.html', 'r+')
       r = @v.validate_file(fh)

@@ -14,13 +14,16 @@ class ExceptionTests < Test::Unit::TestCase
   end
 
   def test_bad_validator_uri
-    omit("Pending, broken")
-    ['http://noexist/', 'http://noexist.badtld/',
-     'http://example.com/noexist'].each do |uri|
-      v = MarkupValidator.new(:validator_uri => uri)
-      assert_raise ValidatorUnavailable do
-        v.validate_text(@valid_fragment)
+    VCR.turned_off do
+      WebMock.allow_net_connect!
+      ['http://noexist/', 'http://noexist.badtld/',
+       'http://example.com/noexist'].each do |uri|
+        v = MarkupValidator.new(:validator_uri => uri)
+        assert_raise ValidatorUnavailable do
+          v.validate_text(@valid_fragment)
+        end
       end
+      WebMock.disable_net_connect!
     end
   end
 

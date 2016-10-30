@@ -9,7 +9,6 @@ class FeedValidatorTests < Test::Unit::TestCase
   end
 
   def test_validating_uri_with_soap
-    omit("Pending, broken")
     VCR.use_cassette('feed_validating_uri_with_soap') do
       r = @v.validate_uri('https://doc75.github.io/w3c_validators_tests/invalid_feed.xml')
       assert_errors r, 1
@@ -18,7 +17,6 @@ class FeedValidatorTests < Test::Unit::TestCase
   end
  
   def test_validating_file
-    omit("Pending, broken")
     VCR.use_cassette('feed_validating_file') do
       file_path = File.expand_path(File.dirname(__FILE__) + '/fixtures/invalid_feed.xml')
       r = @v.validate_file(file_path)
@@ -27,7 +25,6 @@ class FeedValidatorTests < Test::Unit::TestCase
   end
  
   def test_validating_text
-    omit("Pending, broken")
     VCR.use_cassette('feed_validating_text') do
       fragment = <<-EOT
       <?xml version="1.0" encoding="utf-8"?>
@@ -58,8 +55,7 @@ class FeedValidatorTests < Test::Unit::TestCase
 
 
   def test_validating_text_via_file
-    omit("Pending, broken")
-    VCR.use_cassette('fieed_validating_text_via_file') do
+    VCR.use_cassette('feed_validating_text_via_file') do
       file_path = File.expand_path(File.dirname(__FILE__) + '/fixtures/invalid_feed.xml')
       fh = File.new(file_path, 'r+')
       r = @v.validate_file(fh)

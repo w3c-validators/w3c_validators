@@ -23,7 +23,7 @@ module W3CValidators
     #
     # Returns W3CValidators::Results.
     def validate_uri(url)
-      return validate({:url => url})
+      return validate({:url => url}, :get)
     end
 
     # Validate a feed from a string.
@@ -49,9 +49,9 @@ module W3CValidators
     end
 
 protected
-    def validate(options) # :nodoc:
+    def validate(options, mode = :post_url_encode) # :nodoc:
       options = get_request_options(options)
-      response = send_request(options, :post)
+      response = send_request(options, mode)
       @results = parse_soap_response(response.body)
       @results
     end

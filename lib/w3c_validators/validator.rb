@@ -77,6 +77,10 @@ module W3CValidators
 
           query, boundary = create_multipart_data(post)
           response = http.post2(@validator_uri.path + '?' + qs, query, "Content-type" => "multipart/form-data; boundary=" + boundary)
+        when :post_url_encode
+          # send a x-www-form-urlencoded request
+          query = create_query_string_data(options)
+          response = http.post2(@validator_uri.path, query)
         else
           raise ArgumentError, "request_mode must be either :get, :head or :post"
       end

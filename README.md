@@ -1,50 +1,57 @@
-= W3C Validators Gem README
+# W3C Validators Gem README
+[![Build Status](https://travis-ci.org/w3c-validators/w3c_validators.svg?branch=master)](https://travis-ci.org/w3c-validators/w3c_validators)
 
 W3C Validators is a Ruby wrapper for the World Wide Web Consortium's online 
 validation services.
 
 It supports the markup validator, the feed validator and the CSS validator.
 
-=== Installation
+### Installation
 
+```bash
   gem install w3c_validators
+```
 
-=== Usage
+### Usage
 
-There are three main validator classes available, the W3CValidators::MarkupValidator 
-(used for HTML), the W3CValidators::FeedValidator and the 
-W3CValidators::CSSValidator.
+There are three main validator classes available, the `W3CValidators::MarkupValidator`
+(used for HTML), the `W3CValidators::FeedValidator` and the `W3CValidators::CSSValidator`.
 
 Each validator has offers three different validation methods.
 
-* +validate_text+ methods take a string
-* +validate_file+ methods take a path to a file or an IO object
-* +validate_uri+ methods take a published URL
+* `validate_text` methods take a string
+* `validate_file` methods take a path to a file or an IO object
+* `validate_uri` methods take a published URL
 
-In addition, the W3CValidators::MarkupValidator has a validate_uri_quickly method, which 
-performs a HEAD request against the markup validation service.  The Results 
+In addition, the `W3CValidators::MarkupValidator` has a `validate_uri_quickly` method, which 
+performs a HEAD request against the markup validation service. The Results 
 of this call give an error count but no error details.
 
-==== Using a local validator
+#### Using a local validator
 
 Each of the three validators allows you to specify a custom path to the 
 validator.  You can set your own validator like this:
 
+```ruby
   validator = MarkupValidator.new(:validator_uri => 'http://localhost/check')
+```
 
-==== Using a proxy server
+#### Using a proxy server
 
 You can use a proxy server by passing in its information in the contructor.
 
+```ruby
   validator = MarkupValidator.new(:proxy_host => 'proxy.example.com',
                                   :proxy_port => 80,
                                   :proxy_user => 'optional',
                                   :proxy_pass => 'optional')
+```
 
-=== Examples
+### Examples
 
-==== Example #1: Markup validator, local file
+#### Example #1: Markup validator, local file
 
+```ruby
   require 'w3c_validators'
   
   include W3CValidators
@@ -73,10 +80,12 @@ You can use a proxy server by passing in its information in the contructor.
   results.debug_messages.each do |key, value|
     puts "#{key}: #{value}"
   end
+```
 
 
-==== Example #2: Feed validator, remote file
+#### Example #2: Feed validator, remote file
 
+```ruby
   require 'w3c_validators'
   
   include W3CValidators
@@ -92,9 +101,11 @@ You can use a proxy server by passing in its information in the contructor.
   else
     puts 'Valid!'
   end
+```
 
-==== Example #3: CSS validator, text fragment
+#### Example #3: CSS validator, text fragment
 
+```ruby
   require 'w3c_validators'
   
   include W3CValidators
@@ -110,23 +121,24 @@ You can use a proxy server by passing in its information in the contructor.
   else
     puts 'Valid!'
   end
+```
 
-=== Tests
+### Tests
 
 Run unit tests using <tt>rake test</tt>.  Note that there is a one second delay 
 between each call to the W3C's validators per their request.
 
 
-=== Credits and code
+### Credits and code
 
-Documentation is available at {http://code.dunae.ca/w3c_validators}[http://code.dunae.ca/w3c_validators].
+Documentation is available at [http://code.dunae.ca/w3c_validators](http://code.dunae.ca/w3c_validators).
 
-Source is available on {GitHub}[https://github.com/alexdunae/w3c-validators]
+Source is available on [GitHub](https://github.com/alexdunae/w3c-validators)
 
-Written by Alex Dunae ({dunae.ca}[http://dunae.ca/], e-mail 'code' at the same domain), 2007.
+Written by Alex Dunae ([dunae.ca](http://dunae.ca/), e-mail 'code' at the same domain), 2007.
 
-Thanks to {Ryan King}[http://theryanking.com/] for creating the 0.9.2 update.
+Thanks to [Ryan King](http://theryanking.com/) for creating the 0.9.2 update.
 
-Thanks to {Ryan King}[http://theryanking.com/], {Jonathan Julian}[http://jonathanjulian.org/] and Sylvain LaFleur for creating the 0.9.3 update.
+Thanks to [Ryan King](http://theryanking.com/), [Jonathan Julian](http://jonathanjulian.org/) and Sylvain LaFleur for creating the 0.9.3 update.
 
-Thanks to {James Rosen}[http://github.com/jamesarosen] and {Roman Shterenzon}[http://github.com/romanbsd] for creating the 1.0.1 update.
+Thanks to [James Rosen](http://github.com/jamesarosen) and [Roman Shterenzon](http://github.com/romanbsd) for creating the 1.0.1 update.

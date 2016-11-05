@@ -59,3 +59,6 @@ EOH
     file.puts 'end'
   end
 end
+
+task :default => :test
+

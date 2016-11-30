@@ -1,27 +1,27 @@
 PATH
   remote: .
   specs:
-    w3c_validators (1.2)
-      json
+    w3c_validators (1.3)
+      json (~> 2.0)
       nokogiri (~> 1.6)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.4.0)
+    addressable (2.5.0)
+      public_suffix (~> 2.0, >= 2.0.2)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
-    hashdiff (0.3.0)
-    json (1.8.3)
+    hashdiff (0.3.1)
+    json (2.0.2)
     mini_portile2 (2.1.0)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
-    power_assert (0.3.1)
+    power_assert (0.4.1)
+    public_suffix (2.0.4)
     rake (11.3.0)
-    rdoc (4.2.2)
-      json (~> 1.4)
     safe_yaml (1.0.4)
-    test-unit (3.2.1)
+    test-unit (3.2.3)
       power_assert
     vcr (3.0.3)
     webmock (2.1.0)
@@ -34,7 +34,6 @@ PLATFORMS
 
 DEPENDENCIES
   rake
-  rdoc
   test-unit
   vcr
   w3c_validators!

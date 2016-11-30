@@ -32,12 +32,18 @@
  * Switched to Nokogiri for XML parsing
 
 == Version 1.2
- * Not documented
+ * Use CSS3 as default profile 
+ * Use Bundler and update to new RDoc command 
  
 == Version 1.3 (not yet published)
  * drop ruby 1.9 compatibility
- * Move markup validator to https
+ * Move markup and nu validators to https
  * Use POST for file validation (avoid crash for big files)
- * Use CSS3 as default profile 
- * Use Bundler and update to new RDoc command 
- * Use POST in feed validator
+ * Use POST with x-www-form-urlencoded instead of multipart/form-data for feed validation
+ * Mock test with VCR to prevent w3c abuse ban when replaying tests
+ * Add support for context and skippedstring to CSS messages
+ * Create gemspec
+ * Move README from rdoc format to markdown format
+ * Add capability to manage vendor extension as warning or error
+ * Activate travis-ci build
+

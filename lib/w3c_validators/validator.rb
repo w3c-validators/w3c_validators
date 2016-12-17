@@ -62,25 +62,44 @@ module W3CValidators
           query = create_query_string_data(options)
           response = http.get(@validator_uri.path + '?' + query)
         when :post
-          # send a multipart form request
-          if params_to_post
-            post = {}
-            [params_to_post].flatten.each do |param|
-              post[param] = options.delete(param)
+          path = nil
+          if options.has_key? :post
+            opt = options[:post]
+            options.delete(:post)
+            case opt
+              when :url_encode
+                path = @validator_uri.path
+                query = create_query_string_data(options)
+                header = nil
+              when :body
+                query = options[:content]
+                header = { "Content-type" => 'text/html; charset=utf-8' }
+                options.delete(:content)
+              else
+                raise ArgumentError, ":post specifier must be :url_encode or :body"
             end
           else
-            post = options
-            options = {}
+            # send a multipart form request
+            if params_to_post
+              post = {}
+              [params_to_post].flatten.each do |param|
+                post[param] = options.delete(param)
+              end
+            else
+             post = options
+             options = {}
+            end
+            query, boundary = create_multipart_data(post)
+            header = { "Content-type" => "multipart/form-data; boundary=" + boundary }
+
           end
 
           qs = create_query_string_data(options)
 
-          query, boundary = create_multipart_data(post)
-          response = http.post2(@validator_uri.path + '?' + qs, query, "Content-type" => "multipart/form-data; boundary=" + boundary)
-        when :post_url_encode
-          # send a x-www-form-urlencoded request
-          query = create_query_string_data(options)
-          response = http.post2(@validator_uri.path, query)
+          if path.nil?
+            path = @validator_uri.path + '?' + qs
+          end
+          response = http.post2(path, query, header)
         else
           raise ArgumentError, "request_mode must be either :get, :head or :post"
       end

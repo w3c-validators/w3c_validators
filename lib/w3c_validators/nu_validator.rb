@@ -57,7 +57,7 @@ module W3CValidators
         file_path = file
       end 
 
-      return validate({:file => src, :file_path => file_path})
+      return validate_text(src)
     end
 
 protected
@@ -67,6 +67,8 @@ protected
       if options.has_key?(:doc)
         response = send_request(options, :get)
       else
+        # we force the file to be sent in the request body
+        options.merge!({:post => :body})
         response = send_request(options, :post, false, :content)
       end
 

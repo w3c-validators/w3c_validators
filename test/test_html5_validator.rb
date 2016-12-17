@@ -29,16 +29,16 @@ class HTML5ValidatorTests < Test::Unit::TestCase
   end
 
   def test_validating_file
-    omit('Pending, broken')
     VCR.use_cassette('html5_validating_file') do
       file = File.dirname(__FILE__) + '/fixtures/invalid_html5.html'
       r = @v.validate_file(file)
-      assert_errors r, 1
+      assert_errors r, 2
+      assert_no_warnings r
+      assert !r.is_valid?
     end
   end
 
   def test_validating_text
-    omit('Pending, broken')
     VCR.use_cassette('html5_validating_text') do
       valid_fragment = <<-EOV
       <!DOCTYPE html>
@@ -59,16 +59,22 @@ class HTML5ValidatorTests < Test::Unit::TestCase
       EOV
     
       r = @v.validate_text(valid_fragment)
-      assert_errors r, 1
+      assert_errors r, 2
+      assert_no_warnings r
+      assert !r.is_valid?
     end
   end
 
-  #def test_validating_text_via_file
-  #  fh = File.new(File.dirname(__FILE__) + '/fixtures/invalid_html5.html', 'r+')    
-  #  r = @v.validate_file(fh)
-  #  fh.close
-  #  assert_equal 1, r.errors.length
-  #end
+  def test_validating_text_via_file
+    VCR.use_cassette('html5_validating_text_via_file') do
+      fh = File.new(File.dirname(__FILE__) + '/fixtures/invalid_html5.html', 'r+')    
+      r = @v.validate_file(fh)
+      fh.close
+      assert_errors r, 2
+      assert_no_warnings r
+      assert !r.is_valid?
+    end
+  end
 
 
 end

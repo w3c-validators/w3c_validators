@@ -35,7 +35,7 @@
  * Use CSS3 as default profile 
  * Use Bundler and update to new RDoc command 
  
-== Version 1.3 (not yet published)
+== Version 1.3
  * drop ruby 1.9 compatibility
  * Move markup and nu validators to https
  * Use POST for file validation (avoid crash for big files)
@@ -46,4 +46,7 @@
  * Move README from rdoc format to markdown format
  * Add capability to manage vendor extension as warning or error
  * Activate travis-ci build
+
+== Version 1.3.1
+ * Fix file validation in NuValidator
 

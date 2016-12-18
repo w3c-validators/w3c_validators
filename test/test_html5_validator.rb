@@ -73,6 +73,14 @@ class HTML5ValidatorTests < Test::Unit::TestCase
       assert_errors r, 2
       assert_no_warnings r
       assert !r.is_valid?
+      # check content of first error
+      assert_equal r.errors[0].line, 15
+      assert_equal r.errors[0].col, 3
+      assert r.errors[0].message =~ /unclosed elements/
+      # check content of second error
+      assert_equal r.errors[1].line, 10
+      assert_equal r.errors[1].col, 5
+      assert r.errors[1].message =~ /Unclosed element “section”/
     end
   end
 

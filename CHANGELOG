@@ -50,4 +50,7 @@
 == Version 1.3.1
  * Fix file validation in NuValidator
  * Fix issue in getting error line with NuValidator
+ * update README to indicate NuValidator is the preferred HTML checker
+ * update gemspec
+ * update test to point to project gh-pages
 

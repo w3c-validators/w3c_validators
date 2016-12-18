@@ -4,7 +4,7 @@
 W3C Validators is a Ruby wrapper for the World Wide Web Consortium's online 
 validation services.
 
-It supports the markup validator, the feed validator and the CSS validator.
+It supports the nu validator, the feed validator and the CSS validator.
 
 ### Installation
 
@@ -14,8 +14,13 @@ It supports the markup validator, the feed validator and the CSS validator.
 
 ### Usage
 
-There are three main validator classes available, the `W3CValidators::MarkupValidator`
+There are three main validator classes available, the `W3CValidators::NuValidator`
 (used for HTML), the `W3CValidators::FeedValidator` and the `W3CValidators::CSSValidator`.
+
+**Warning**: The `W3CValidators::MarkupValidator` also exist but is not anymore the preferred
+way to check HTML document. Indeed, it is working fine for non-HTML5 documents,
+but it is broken when you test an HTML5 document due to W3C redirection. `W3CValidators::NuValidator`
+should be used instead for standard cases.
 
 Each validator has offers three different validation methods.
 
@@ -33,7 +38,7 @@ Each of the three validators allows you to specify a custom path to the
 validator.  You can set your own validator like this:
 
 ```ruby
-  validator = MarkupValidator.new(:validator_uri => 'http://localhost/check')
+  validator = NuValidator.new(:validator_uri => 'http://localhost/check')
 ```
 
 #### Using a proxy server
@@ -41,30 +46,24 @@ validator.  You can set your own validator like this:
 You can use a proxy server by passing in its information in the contructor.
 
 ```ruby
-  validator = MarkupValidator.new(:proxy_host => 'proxy.example.com',
-                                  :proxy_port => 80,
-                                  :proxy_user => 'optional',
-                                  :proxy_pass => 'optional')
+  validator = NuValidator.new(:proxy_host => 'proxy.example.com',
+                              :proxy_port => 80,
+                              :proxy_user => 'optional',
+                              :proxy_pass => 'optional')
 ```
 
 ### Examples
 
-#### Example #1: Markup validator, local file
+#### Example #1: Nu validator, local file
 
 ```ruby
   require 'w3c_validators'
   
   include W3CValidators
 
-  @validator = MarkupValidator.new
+  @validator = NuValidator.new
   
-  # override the DOCTYPE
-  @validator.set_doctype!(:html32)
-  
-  # turn on debugging messages
-  @validator.set_debug!(true)
-
-  file = File.dirname(__FILE__) + '/fixtures/markup.html'
+  file = File.dirname(__FILE__) + '/fixtures/valid_html5.html'
   results = @validator.validate_file(fp)
 
   if results.errors.length > 0
@@ -73,12 +72,6 @@ You can use a proxy server by passing in its information in the contructor.
     end
   else
     puts 'Valid!'
-  end
-  
-  puts 'Debugging messages'
-  
-  results.debug_messages.each do |key, value|
-    puts "#{key}: #{value}"
   end
 ```
 
@@ -123,6 +116,38 @@ You can use a proxy server by passing in its information in the contructor.
   end
 ```
 
+#### Example #4: Markup validator, local file
+
+```ruby
+  require 'w3c_validators'
+  
+  include W3CValidators
+
+  @validator = MarkupValidator.new
+  
+  # override the DOCTYPE
+  @validator.set_doctype!(:html32)
+  
+  # turn on debugging messages
+  @validator.set_debug!(true)
+
+  file = File.dirname(__FILE__) + '/fixtures/markup.html'
+  results = @validator.validate_file(fp)
+
+  if results.errors.length > 0
+    results.errors.each do |err|
+      puts err.to_s
+    end
+  else
+    puts 'Valid!'
+  end
+  
+  puts 'Debugging messages'
+  
+  results.debug_messages.each do |key, value|
+    puts "#{key}: #{value}"
+  end
+```
 ### Tests
 
 Run unit tests using <tt>rake test</tt>.  Note that there is a one second delay 
@@ -131,9 +156,7 @@ between each call to the W3C's validators per their request.
 
 ### Credits and code
 
-Documentation is available at [http://code.dunae.ca/w3c_validators](http://code.dunae.ca/w3c_validators).
-
-Source is available on [GitHub](https://github.com/alexdunae/w3c-validators)
+Source is available on [GitHub](https://github.com/w3c-validators/w3c_validators)
 
 Written by Alex Dunae ([dunae.ca](http://dunae.ca/), e-mail 'code' at the same domain), 2007.
 

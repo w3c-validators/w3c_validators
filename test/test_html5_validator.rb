@@ -10,9 +10,9 @@ class HTML5ValidatorTests < Test::Unit::TestCase
 
   def test_getting_request_data
     VCR.use_cassette('html5_getting_request_data') do
-      r = @v.validate_uri('https://doc75.github.io/w3c_validators_tests/valid_html5.html')
+      r = @v.validate_uri('https://w3c-validators.github.io/w3c_validators/valid_html5.html')
       assert_equal :html5, r.doctype
-      assert_equal 'https://doc75.github.io/w3c_validators_tests/valid_html5.html', r.uri
+      assert_equal 'https://w3c-validators.github.io/w3c_validators/valid_html5.html', r.uri
       assert_no_errors r
       assert_no_warnings r
       assert r.is_valid?
@@ -21,7 +21,7 @@ class HTML5ValidatorTests < Test::Unit::TestCase
 
   def test_validating_uri
     VCR.use_cassette('html5_validating_uri') do
-      r = @v.validate_uri('https://doc75.github.io/w3c_validators_tests/invalid_html5.html')
+      r = @v.validate_uri('https://w3c-validators.github.io/w3c_validators/invalid_html5.html')
       assert_errors r, 2
       assert_no_warnings r
       assert !r.is_valid?

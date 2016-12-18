@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://validator.w3.org/check?doctype=HTML%203.2&fbd=1&output=soap12&uri=https://doc75.github.io/w3c_validators_tests/invalid_markup_1.html
+    uri: https://validator.w3.org/check?doctype=HTML%203.2&fbd=1&output=soap12&uri=https://w3c-validators.github.io/w3c_validators/invalid_markup_1.html
     body:
       encoding: US-ASCII
       string: ''
@@ -47,7 +47,7 @@ http_interactions:
       encoding: UTF-8
       string: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<env:Envelope xmlns:env=\"http://www.w3.org/2003/05/soap-envelope\">\n<env:Body>\n<m:markupvalidationresponse
         env:encodingStyle=\"http://www.w3.org/2003/05/soap-encoding\" xmlns:m=\"http://www.w3.org/2005/10/markup-validator\">\n
-        \   \n    <m:uri>https://doc75.github.io/w3c_validators_tests/invalid_markup_1.html</m:uri>\n
+        \   \n    <m:uri>https://w3c-validators.github.io/w3c_validators/invalid_markup_1.html</m:uri>\n
         \   <m:checkedby>http://validator.w3.org/</m:checkedby>\n    <m:doctype>-//W3C//DTD
         XHTML 1.0 Transitional//EN</m:doctype>\n    <m:charset>utf-8</m:charset>\n
         \   <m:validity>false</m:validity>\n    <m:warnings>\n        <m:warningcount>0</m:warningcount>\n
@@ -56,7 +56,7 @@ http_interactions:
         \           <m:error>\n                <m:line>8</m:line>\n                <m:col>12</m:col>\n
         \               <m:message>there is no attribute &quot;unknown&quot;</m:message>\n
         \               <m:messageid>108</m:messageid>\n                <m:explanation>
-        \ <![CDATA[\n                      <p class=\"helpwanted\">\n      <a\n        href=\"feedback.html?uri=https%3A%2F%2Fdoc75.github.io%2Fw3c_validators_tests%2Finvalid_markup_1.html;errmsg_id=108#errormsg\"\n\ttitle=\"Suggest
+        \ <![CDATA[\n                      <p class=\"helpwanted\">\n      <a\n        href=\"feedback.html?uri=https%3A%2F%2Fw3c-validators.github.io%2Fw3c_validators%2Finvalid_markup_1.html;errmsg_id=108#errormsg\"\n\ttitle=\"Suggest
         improvements on this error message through our feedback channels\" \n      >&#x2709;</a>\n
         \   </p>\n\n    <div class=\"ve mid-108\">\n    <p>\n      You have used the
         attribute named above in your document, but the\n      document type you are

@@ -10,7 +10,7 @@ class FeedValidatorTests < Test::Unit::TestCase
 
   def test_validating_uri_with_soap
     VCR.use_cassette('feed_validating_uri_with_soap') do
-      r = @v.validate_uri('https://doc75.github.io/w3c_validators_tests/invalid_feed.xml')
+      r = @v.validate_uri('https://w3c-validators.github.io/w3c_validators/invalid_feed.xml')
       assert_errors r, 1
       assert_warnings r, 1
     end

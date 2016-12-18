@@ -1,0 +1,61 @@
+HTTP/1.1 200 OK
+Date: Mon, 24 Oct 2016 19:45:34 GMT
+Server: Apache/2.4.10 (Debian)
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=UTF-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+<style type="text/css" media="screen">@import "css/common.css";
+@import "css/validator.css";
+@import "css/validator/base.css";
+</style>
+    <title>Feed Validator for Atom and RSS</title>
+  </head>
+
+  <body>
+        <div id="banner">
+          <h1 id="title">
+                  <a href="http://www.w3.org/"><img alt="W3C" width="110" height="61" id="logo" src="/images/w3c.png" /></a>
+    <a href="./"><span>Feed Validation Service</span></a>
+    </h1>
+    			  <p id="tagline">Check the syntax of Atom or RSS feeds</p>
+        </div>
+
+    <div id="main"><!-- This DIV encapsulates everything in this page - necessary for the positioning -->
+
+
+<div class="centered">
+<form id="validation" action="check.cgi" method="get">
+<p>
+<input name="url" id="url" type="text" size="55" maxlength="255" value="http://" />&nbsp;<input type="submit" id="check" value="Check" />
+</p>
+</form>
+</div>
+
+<p style="text-align: center">RSS Profile Support Added (<a href="news/archives/2007/10/15/rss_best_practices.html">more</a>)</p><p>&nbsp;</p>
+
+
+</div><!-- main -->
+    <ul class="navbar" id="menu">
+        <li>
+        <a href="" accesskey="1" title="Go to the Home Page for The W3C Feed Validation Service">Home</a></li>
+        <li><a href="about.html" title="Information About this Service">About...</a></li>
+        <li><a href="whatsnew.html" title="The changes made to this service recently">News</a></li>
+        <li><a href="docs/" accesskey="3" title="Documentation for this Service">Docs</a></li>
+    </ul>
+    <div id="footer">
+
+<address>
+Maintained by the <a href="http://www.w3.org/QA/Tools/qa-dev">W3C qa-dev group</a><br />
+This service uses the <a href="http://sourceforge.net/projects/feedvalidator">Feed validator software</a>.
+</address>
+</div>
+</body>
+</html>
+
+

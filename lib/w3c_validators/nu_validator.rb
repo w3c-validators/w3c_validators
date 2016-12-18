@@ -131,7 +131,7 @@ protected
         end
 
         message_params = {
-          :line => msg['firstLine'],
+          :line => msg['lastLine'],
           :col => msg['firstColumn'],
           :message => msg['message'],
           :source => msg['extract']

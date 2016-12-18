@@ -24,7 +24,7 @@ class ProxyTests < Test::Unit::TestCase
   def test_validating_uri_with_head_request
     omit("Pending, to prevent w3.org abuse")
     VCR.use_cassette('markup_overriding_doctype') do
-      r = @v.validate_uri_quickly('https://doc75.github.io/w3c_validators_tests/invalid_markup_8.html')
+      r = @v.validate_uri_quickly('https://w3c-validators.github.io/w3c_validators/invalid_markup_8.html')
       assert_errors r, 1
     end
   end

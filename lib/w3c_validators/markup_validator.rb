@@ -153,7 +153,7 @@ protected
 
       # Convert booleans to integers
       [:fbc, :fbd, :verbose, :debug, :ss, :outline].each do |k|
-        if options.has_key?(k) and not options[k].kind_of?(Fixnum)
+        if options.has_key?(k) and not options[k].kind_of?(Integer)
           options[k] = options[k] ? 1 : 0
         end
       end

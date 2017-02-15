@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://validator.w3.org/check
+    uri: https://validator.w3.org/
     body:
       encoding: UTF-8
       string: "--349832898984244898448024464570528145\r\nContent-Disposition: form-data;

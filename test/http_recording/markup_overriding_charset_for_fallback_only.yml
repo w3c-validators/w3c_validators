@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://validator.w3.org/check?output=soap12&uri=https://w3c-validators.github.io/w3c_validators/markup_overriding_charset_for_fallback_only.html
+    uri: https://validator.w3.org/?output=soap12&uri=https://w3c-validators.github.io/w3c_validators/markup_overriding_charset_for_fallback_only.html
     body:
       encoding: US-ASCII
       string: ''

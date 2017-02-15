@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://validator.w3.org/check?doctype=HTML%203.2&fbd=0&output=soap12&uri=https://w3c-validators.github.io/w3c_validators/invalid_markup.html
+    uri: https://validator.w3.org/?doctype=HTML%203.2&fbd=0&output=soap12&uri=https://w3c-validators.github.io/w3c_validators/invalid_markup.html
     body:
       encoding: US-ASCII
       string: ''

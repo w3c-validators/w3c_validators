@@ -1,6 +1,6 @@
 module W3CValidators
   class MarkupValidator < Validator
-    MARKUP_VALIDATOR_URI      = 'https://validator.w3.org/check'
+    MARKUP_VALIDATOR_URI      = 'https://validator.w3.org/'
 
     # Create a new instance of the MarkupValidator.
     #

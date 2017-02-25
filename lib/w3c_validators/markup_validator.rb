@@ -14,6 +14,7 @@ module W3CValidators
     #
     # See Validator#new for proxy server options.
     def initialize(options = {})
+      puts "The MarkupValidator class is deprecated (cf. https://validator.w3.org/docs/obsolete-api.html) as it cannot process HTML5 documents.\nPlease prefer the NuValidator class instead."
       if options[:validator_uri]
         @validator_uri = URI.parse(options[:validator_uri])
         options.delete(options[:validator_uri])

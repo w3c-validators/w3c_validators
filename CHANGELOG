@@ -60,4 +60,5 @@
 
 == Next version
  * add deprecation warning for class MarkupValidator
+ * raise ValidatorUnavailable when connection to uri is refused
 

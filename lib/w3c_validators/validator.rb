@@ -174,7 +174,7 @@ module W3CValidators
     #++
     def handle_exception(e, msg = '') # :nodoc:
       case e
-        when Net::HTTPServerException, SocketError
+        when Net::HTTPServerException, SocketError, Errno::ECONNREFUSED
           msg = "unable to connect to the validator at #{@validator_uri} (response was #{e.message})."
           raise ValidatorUnavailable, msg, caller
         when JSON::ParserError, Nokogiri::XML::SyntaxError

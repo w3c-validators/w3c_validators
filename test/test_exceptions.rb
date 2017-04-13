@@ -17,7 +17,7 @@ class ExceptionTests < Test::Unit::TestCase
     VCR.turned_off do
       WebMock.allow_net_connect!
       ['http://noexist/', 'http://noexist.badtld/',
-       'http://example.com/noexist'].each do |uri|
+       'http://example.com/noexist', 'http://localhost:9999/'].each do |uri|
         v = MarkupValidator.new(:validator_uri => uri)
         assert_raise ValidatorUnavailable do
           v.validate_text(@valid_fragment)

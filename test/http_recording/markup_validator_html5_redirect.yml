@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://validator.w3.org/check
+    uri: https://validator.w3.org/
     body:
       encoding: UTF-8
       string: "--349832898984244898448024464570528145\r\nContent-Disposition: form-data;
@@ -57,7 +57,7 @@ http_interactions:
   recorded_at: Sat, 17 Dec 2016 22:18:41 GMT
 - request:
     method: post
-    uri: https://validator.w3.org/check
+    uri: https://validator.w3.org/
     body:
       encoding: UTF-8
       string: "--349832898984244898448024464570528145\r\nContent-Disposition: form-data;
@@ -81,7 +81,7 @@ http_interactions:
       Server:
       - Apache/2.4.10 (Debian)
       Location:
-      - http://validator.w3.org/check?uri=https%3A%2F%2Fvalidator.w3.org%2Fnu%2F%23textarea
+      - http://validator.w3.org/?uri=https%3A%2F%2Fvalidator.w3.org%2Fnu%2F%23textarea
       Content-Length:
       - '0'
       Strict-Transport-Security:

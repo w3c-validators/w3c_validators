@@ -2,7 +2,7 @@ require 'json'
 
 module W3CValidators
   class NuValidator < Validator
-    MARKUP_VALIDATOR_URI      = 'https://validator.nu/'
+    MARKUP_VALIDATOR_URI      = 'https://validator.w3.org/nu/'
 
     # Create a new instance of the NuValidator.
     #

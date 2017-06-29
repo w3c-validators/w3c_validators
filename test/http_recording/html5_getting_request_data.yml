@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://validator.nu/?doc=https://w3c-validators.github.io/w3c_validators/valid_html5.html&out=json&parser=html&showsource=yes
+    uri: https://validator.w3.org/nu/?doc=https://w3c-validators.github.io/w3c_validators/valid_html5.html&out=json&parser=html&showsource=yes
     body:
       encoding: US-ASCII
       string: ''
@@ -18,16 +18,8 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Server:
-      - nginx/1.11.5
       Date:
-      - Sun, 18 Dec 2016 11:03:30 GMT
-      Content-Type:
-      - application/json; charset=utf-8
-      Transfer-Encoding:
-      - chunked
-      Connection:
-      - keep-alive
+      - Thu, 29 Jun 2017 19:17:26 GMT
       Accept-Encoding:
       - gzip
       Access-Control-Allow-Origin:
@@ -38,14 +30,33 @@ http_interactions:
       - Thu, 01 Jan 1970 00:00:00 GMT
       Cache-Control:
       - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
       Vary:
       - Accept-Encoding, User-Agent
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(9.2.9.v20150224)
       Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
+      - max-age=15552015; preload
+      Public-Key-Pins:
+      - pin-sha256="cN0QSpPIkuwpT6iP2YjEo1bEwGpH/yiUn6yhdy+HNto="; pin-sha256="WGJkyYjx1QMdMe0UqlyOKXtydPDVrk7sl2fV+nNm1r4=";
+        pin-sha256="LrKdTxZLRTvyHM4/atX2nquX9BeHRZMCxg3cf4rhc2I="; max-age=864000
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
     body:
       encoding: ASCII-8BIT
-      string: |
-        {"url":"https://w3c-validators.github.io/w3c_validators/valid_html5.html","messages":[],"source":{"type":"text/html","encoding":"utf-8","code":"<!DOCTYPE html>\n<html lang=\"en-ca\">\n  <head>\n\t<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\">\n    <title>HTML 5 Example</title>\n  </head>\n  <body>\n    <p>This is a sample HTML 5 document.</p>\n    <section>\n\t  <h1>Example of paragraphs</h1>\n\t  This is the <em>first</em> paragraph in this example.\n\t  <p>This is the second.</p>\n\t  <!-- This is not a paragraph. -->\n\t</section>\n  </body>\n</html>"}}
+      string: '{"url":"https://w3c-validators.github.io/w3c_validators/valid_html5.html","messages":[],"source":{"type":"text/html","encoding":"utf-8","code":"<!DOCTYPE
+        html>\n<html lang=\"en-ca\">\n  <head>\n\t<meta http-equiv=\"Content-type\"
+        content=\"text/html; charset=utf-8\">\n    <title>HTML 5 Example</title>\n  </head>\n  <body>\n    <p>This
+        is a sample HTML 5 document.</p>\n    <section>\n\t  <h1>Example of paragraphs</h1>\n\t  This
+        is the <em>first</em> paragraph in this example.\n\t  <p>This is the second.</p>\n\t  <!--
+        This is not a paragraph. -->\n\t</section>\n  </body>\n</html>"}}
+
+'
     http_version: 
-  recorded_at: Sun, 18 Dec 2016 11:03:30 GMT
+  recorded_at: Thu, 29 Jun 2017 19:17:27 GMT
 recorded_with: VCR 3.0.3

@@ -58,7 +58,8 @@
  * relax constraint on json gem to >=1.8 instead of ~>2.0
  * add test of ruby 2.4.0 + drop test of ruby 2.0.0
 
-== Next version
+== Version 1.3.3
  * add deprecation warning for class MarkupValidator
  * raise ValidatorUnavailable when connection to uri is refused
+ * Change the Nu Validator URL to "https://validator.w3.org/nu/" (https://validator.nu is returning 502)
 

@@ -44,17 +44,15 @@ module W3CValidators
     
     # Validate the markup of a local file.
     #
-    # +file_path+ may be either the fully-expanded path to the file or
+    # +file+ may be either the fully-expanded path to the file or
     # an IO object (like File).
     #
     # Returns W3CValidators::Results.
     def validate_file(file)
       if file.respond_to? :read
         src = file.read
-        file_path = file.path ||= nil
       else
         src = read_local_file(file)
-        file_path = file
       end 
 
       return validate_text(src)

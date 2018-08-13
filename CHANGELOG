@@ -63,3 +63,8 @@
  * raise ValidatorUnavailable when connection to uri is refused
  * Change the Nu Validator URL to "https://validator.w3.org/nu/" (https://validator.nu is returning 502)
 
+== Version 1.3.4
+ * migrate css validator to https (instead of http)
+ * add test of ruby 2.5
+ * remove unused variable in nu validator code
+

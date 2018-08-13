@@ -1,6 +1,6 @@
 module W3CValidators
   class CSSValidator < Validator
-    CSS_VALIDATOR_URI      = 'http://jigsaw.w3.org/css-validator/validator'
+    CSS_VALIDATOR_URI      = 'https://jigsaw.w3.org/css-validator/validator'
 
     # Create a new instance of the CSSValidator.
     #

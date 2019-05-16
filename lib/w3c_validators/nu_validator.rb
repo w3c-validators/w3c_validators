@@ -140,8 +140,8 @@ protected
 
       return results
 
-      rescue Exception => e
-        handle_exception e
+    rescue Exception => e
+      handle_exception e
     end
   end
 end

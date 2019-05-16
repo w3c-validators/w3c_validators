@@ -202,8 +202,8 @@ protected
       end
       return results
 
-      rescue Exception => e
-        handle_exception e
+    rescue Exception => e
+      handle_exception e
     end
 
     # Parse the HEAD response into HTMLValidator::Results.

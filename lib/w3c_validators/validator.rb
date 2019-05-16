@@ -112,8 +112,8 @@ module W3CValidators
       response.value
       return response
 
-      rescue Exception => e
-        handle_exception e
+    rescue Exception => e
+      handle_exception e
     end
 
     def create_multipart_data(options) # :nodoc:

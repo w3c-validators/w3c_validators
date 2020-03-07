@@ -16,6 +16,7 @@ module W3CValidators
     HEAD_STATUS_HEADER        = 'X-W3C-Validator-Status'
     HEAD_ERROR_COUNT_HEADER   = 'X-W3C-Validator-Errors'
     SOAP_OUTPUT_PARAM         = 'soap12'
+    USE_NEW_EXCEPTION         = Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('2.6')
 
     attr_reader :results, :validator_uri
 
@@ -173,8 +174,13 @@ module W3CValidators
     # Big thanks to ara.t.howard and Joel VanderWerf on Ruby-Talk for the exception handling help.
     #++
     def handle_exception(e, msg = '') # :nodoc:
+      if USE_NEW_EXCEPTION
+        http_exception = Net::HTTPClientException
+      else
+        http_exception = Net::HTTPServerException
+      end
       case e
-        when Net::HTTPServerException, SocketError, Errno::ECONNREFUSED
+        when http_exception, SocketError, Errno::ECONNREFUSED
           msg = "unable to connect to the validator at #{@validator_uri} (response was #{e.message})."
           raise ValidatorUnavailable, msg, caller
         when JSON::ParserError, Nokogiri::XML::SyntaxError

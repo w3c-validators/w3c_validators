@@ -148,6 +148,36 @@ You can use a proxy server by passing in its information in the contructor.
     puts "#{key}: #{value}"
   end
 ```
+
+### Examples with Ruby Frameworks
+
+```
+# you can easily incorporate this in your ruby based frameworks:
+
+# Gemfile
+group :test do
+    gem 'w3c_validators'
+end
+
+# And in your relevant test file:
+
+require 'w3c_validators'
+
+class FoosControllerTest < ActionDispatch::IntegrationTest
+  setup do  
+    @validator = W3CValidators::NuValidator.new
+  end
+  
+  test "index" do
+    get foos_url
+    assert_equal 0, @validator.validate_text(response.body).errors.length
+  end
+end
+
+# granted it's not perfect, but hopefully that will at least get you going
+# you might want to customise things so that it delivers a particular output in case an error shows up.
+```
+
 ### Tests
 
 Run unit tests using <tt>rake test</tt>.  Note that there is a one second delay 

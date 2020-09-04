@@ -12,7 +12,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = W3CValidators::VERSION
 
-  gem.required_ruby_version = '~>2.0'
+  gem.required_ruby_version = '>= 2.0'
 
   gem.add_dependency 'nokogiri', '~> 1.6'
   gem.add_dependency 'json', '>= 1.8'

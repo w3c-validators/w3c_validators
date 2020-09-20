@@ -16,7 +16,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'nokogiri', '~> 1.6'
   gem.add_dependency 'json', '>= 1.8'
-  gem.add_dependency 'rexml'
+  gem.add_dependency 'rexml', '~> 3.2'
 
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'vcr'

@@ -1,6 +1,6 @@
 module W3CValidators
   class FeedValidator < Validator
-    FEED_VALIDATOR_URI      = 'http://validator.w3.org/feed/check.cgi'
+    FEED_VALIDATOR_URI      = 'https://validator.w3.org/feed/check.cgi'
 
     # Create a new instance of the FeedValidator.
     #

@@ -76,3 +76,8 @@
 == Version 1.3.6
  * update README to clarify usage with Ruby frameworks
  * update dependencies to be ready for ruby 3.0
+
+== Version 1.3.7
+ * Fix FFeed validator URL (move to HTTPS as HTTP is not supported anymore)
+ * remove travis-ci test (no more support for open source projects)
+

@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: http://validator.w3.org/feed/check.cgi
+    uri: https://validator.w3.org/feed/check.cgi
     body:
       encoding: UTF-8
       string: rawdata=++++++%3C%3Fxml+version%3D%221.0%22+encoding%3D%22utf-8%22%3F%3E%0A++++++%3Cfeed+xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2005%2FAtom%22%3E%0A+++++++%3Ctitle%3EExample+Feed%3C%2Ftitle%3E%0A+++++++%3Csubtitle%3EA+subtitle.%3C%2Fsubtitle%3E%0A+++++++%3Clink+href%3D%22http%3A%2F%2Fexample.org%2Ffeed%2F%22+rel%3D%22self%22%2F%3E%0A+++++++%3Clink+href%3D%22http%3A%2F%2Fexample.org%2F%22%2F%3E%0A+++++++%3Cupdated%3E2003-12-13T18%3A30%3A02Z%3C%2Fupdated%3E%0A+++++++%3Cauthor%3E%0A+++++++++%3Cemail%3Ejohndoe%40example.com%3C%2Femail%3E%0A+++++++%3C%2Fauthor%3E%0A+++++++%3Cid%3Eurn%3Auuid%3A60a76c80-d399-11d9-b91C-0003939e0af6%3C%2Fid%3E%0A+++++++%3Centry%3E%0A+++++++++%3Ctitle%3EAtom-Powered+Robots+Run+Amok%3C%2Ftitle%3E%0A+++++++++%3Clink+href%3D%22http%3A%2F%2Fexample.org%2F2003%2F12%2F13%2Fatom03%22%2F%3E%0A+++++++++%3Cid%3Eurn%3Auuid%3A1225c695-cfb8-4ebb-aaaa-80da344efa6a%3C%2Fid%3E%0A+++++++++%3Cupdated%3E2003-12-13T18%3A30%3A02Z%3C%2Fupdated%3E%0A+++++++++%3Csummary%3ESome+text.%3C%2Fsummary%3E%0A+++++++%3C%2Fentry%3E%0A++++++%3C%2Ffeed%3E%0A&output=soap12&
@@ -19,19 +19,40 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 30 Oct 2016 19:24:58 GMT
-      Server:
-      - Apache/2.4.10 (Debian)
-      Transfer-Encoding:
-      - chunked
+      - Sat, 19 Mar 2022 18:36:45 GMT
       Content-Type:
       - application/soap+xml; charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Strict-Transport-Security:
+      - max-age=15552015; preload
+      Public-Key-Pins:
+      - pin-sha256="cN0QSpPIkuwpT6iP2YjEo1bEwGpH/yiUn6yhdy+HNto="; pin-sha256="WGJkyYjx1QMdMe0UqlyOKXtydPDVrk7sl2fV+nNm1r4=";
+        pin-sha256="LrKdTxZLRTvyHM4/atX2nquX9BeHRZMCxg3cf4rhc2I="; max-age=864000
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Request-Id:
+      - 6ee850bd2adf0893
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 6ee850bd2adf0893-CDG
+      Alt-Svc:
+      - h3=":443"; ma=86400, h3-29=":443"; ma=86400
     body:
       encoding: UTF-8
       string: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<env:Envelope xmlns:env=\"http://www.w3.org/2003/05/soap-envelope\">\n<env:Body>\n<m:feedvalidationresponse
         env:encodingStyle=\"http://www.w3.org/2003/05/soap-encoding\" xmlns:m=\"http://www.w3.org/2005/10/feed-validator\">\n
-        \     <m:uri></m:uri> \n      <m:checkedby>http://validator.w3.org/feed/check.cgi</m:checkedby>\n
-        \     <m:date>2016-10-30T19:24:59.069709</m:date>\n      <m:validity>false</m:validity>\n
+        \     <m:uri></m:uri> \n      <m:checkedby>http://validator.w3.org/check.cgi</m:checkedby>\n
+        \     <m:date>2022-03-19T18:36:45.381575</m:date>\n      <m:validity>false</m:validity>\n
         \ <m:errors>\n        <m:errorcount>1</m:errorcount>\n        <m:errorlist><error>\n
         \ <level>error</level>\n  <type>SAXError</type>\n  <line>1</line>\n  <column>6</column>\n
         \ <text>XML parsing error: &lt;unknown&gt;:1:6: XML or text declaration not
@@ -41,6 +62,5 @@ http_interactions:
         \   </m:errors>\n    <m:warnings>\n        <m:warningcount>0</m:warningcount>\n\t<m:warninglist></m:warninglist>\n
         \   </m:warnings>\n    <m:informations>\n\t<m:infocount>0</m:infocount>\n\t<m:infolist></m:infolist>\n
         \   </m:informations>\n</m:feedvalidationresponse>\n</env:Body>\n</env:Envelope>\n\n"
-    http_version: 
-  recorded_at: Sun, 30 Oct 2016 19:24:58 GMT
-recorded_with: VCR 3.0.3
+  recorded_at: Sat, 19 Mar 2022 18:36:45 GMT
+recorded_with: VCR 6.1.0

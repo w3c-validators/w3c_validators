@@ -64,7 +64,7 @@ You can use a proxy server by passing in its information in the contructor.
   @validator = NuValidator.new
   
   file = File.dirname(__FILE__) + '/fixtures/valid_html5.html'
-  results = @validator.validate_file(fp)
+  results = @validator.validate_file(file)
 
   if results.errors.length > 0
     results.errors.each do |err|
